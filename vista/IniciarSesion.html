@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-MX">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../estilos/estiloPrin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
+        crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INICIAR SESIÓN</title>
+</head>
+<body id="fondo">
+
+    <div class="row shadow g-0 " >
+    <!-- Primera columna //////////////////////////////////////// -->
+        <div class="col-lg-7" style="background-color: #c29500">
+    <!-- Slider de imagenes //////////////////////////////////////// -->
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true"
+                        aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" 
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" 
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item min-vh-100 active" id="img-slider-1" data-bs-interval="5000">
+                        <div class="carousel-caption d-none d-sm-block bg-light" id="border-radius">
+                            <h5 class="text-dark text-uppercase fw-bold">seytú</h5>
+                            <p class="text-dark d-inline-block">Cuida tu belleza con seytú.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item min-vh-100" id="img-slider-2" data-bs-interval="5000">
+                        <div class="carousel-caption d-none d-sm-block bg-light" id="border-radius">
+                            <h5 class="text-dark text-uppercase fw-bold">Vende y gana</h5>
+                            <p class="text-dark d-inline-block">Gana increibles viajes a lugares asombrosos.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item min-vh-100" id="img-slider-3" data-bs-interval="5000">
+                        <div class="carousel-caption d-none d-sm-block bg-light" id="border-radius">
+                            <h5 class="text-dark text-uppercase fw-bold">ÚNETE A NUESTRO EQUIPO</h5>
+                            <p class="text-dark d-inline-block">Únete y has crecer tus ingresos.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    <!-- Segunda columna //////////////////////////////////////// -->
+        <div class="col-lg-5 " style="background-color: #F6C62E">
+            <div class="px-lg-4 pt-lg-4 pb-lg-3 p-4">
+                <a href="../Index.html">
+                    <img src="../galeria/iconos/logobarranavehacion.png" class="img-fluid" 
+                    alt="login-icon" style="height: 5rem;">
+                </a>
+            </div>
+            <div class="px-lg-5 py-lg-4 p-4">
+                <p class="text-center fw-bold fs-4">INICIAR SESIÓN</p>
+    <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
+                <div class="alert alert-danger text-center" role="alert">
+                    ¡Correo o contraseña incorrecta!
+                </div>
+    <!-- Formulario de login ////////////////////////////////////////////////////////////// -->
+                <form class="row g-3 needs-validation " novalidate>
+                    <div class="">
+                        <label for="validationCustomUsername" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/email.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="text" class="form-control" placeholder="Ingrese el email" 
+                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese el correo.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label for="validationCustomUsername" class="form-label">Contraseña</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" id="iconImput" alt=""></span>
+                            <input type="text" class="form-control" placeholder="Ingrese la contraseña" 
+                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese la contraseña.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
+                            <label class="form-check-label" for="invalidCheck">
+                                Mostrar contraseña
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+                    </div>
+                </form>
+                <div class="col-12 pt-3 text-center">
+                    <p>¡Sí no esta registrado puede registrarse <a href="../vista/Registrar.html">aqui</a>!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- JavaScript Bundle with Popper ////////////////////////////////////////////////////// -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" 
+    crossorigin="anonymous">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" 
+    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous">
+    </script>
+
+    <script src="../controlador/peticiones/ctnLogin.js" crossorigin="anonymous"></script>
+</body>
+</html>
