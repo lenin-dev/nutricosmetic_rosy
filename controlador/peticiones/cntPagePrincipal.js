@@ -18,7 +18,7 @@ cargarSlider();
 // cargar pagina de inicio
 function cargarPageInicio() {
     const http = new XMLHttpRequest();
-    const url = '../nutricosmetic_rosy/vista/vistaUsuario/Inicio.html';
+    const url = '../nutricosmetic_rosy/vista/vistaUsuario/Inicio.php';
     http.open('GET', url); 
     http.send();
 
