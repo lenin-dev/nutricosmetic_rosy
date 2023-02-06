@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../estilos/estiloPrin.css">
+    <!-- BOOTSTRAP y sweetalert -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
         crossorigin="anonymous">
+    <!-- ////////////////////// -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIAR SESIÓN</title>
@@ -63,32 +66,43 @@
                     alt="login-icon" style="height: 5rem;">
                 </a>
             </div>
-            <div class="px-lg-5 py-lg-4 p-4">
-                <p class="text-center fw-bold fs-4">INICIAR SESIÓN</p>
-    <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
-                <div class="alert alert-danger text-center" role="alert">
-                    ¡Correo o contraseña incorrecta!
+    <!-- BOTONES DE LOGIN REGISTRO -->
+            <div class="container text-center">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary fw-bold" for="btnradio1">INICIAR SESIÓN</label>
+                
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary fw-bold" for="btnradio2">REGISTRAR</label>
                 </div>
-    <!-- Formulario de login ////////////////////////////////////////////////////////////// -->
-                <form class="row g-3 needs-validation " novalidate>
+            </div>
+
+            <!-- Panel de login -->
+            <div class="px-lg-5 py-lg-4 p-4" id="idLogin">
+                <p class="text-center fw-bold fs-4 mb-0">INICIAR SESIÓN</p>
+        <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
+        <div class="alert alert-danger" style="display: none;" role="alert" id="mensaje2"></div>
+        <!-- Formulario de login ////////////////////////////////////////////////////////////// -->
+                <form method="POST" id="formLoguearse" class="row g-3 needs-validation" novalidate>
                     <div class="">
-                        <label for="validationCustomUsername" class="form-label">Email</label>
+                        <label for="validationCustomUsername01" class="form-label">Email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/email.png" 
                                 id="iconImput" alt=""></span>
-                            <input type="text" class="form-control" placeholder="Ingrese el email" 
-                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                            <input type="email" class="form-control" placeholder="Ingrese el email" 
+                                id="validationCustomUsername01" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback text-uppercase">
                                 Ingrese el correo.
                             </div>
                         </div>
                     </div>
                     <div class="">
-                        <label for="validationCustomUsername" class="form-label">Contraseña</label>
+                        <label for="validationCustomUsername02" class="form-label">Contraseña</label>
                         <div class="input-group has-validation">
-                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" id="iconImput" alt=""></span>
-                            <input type="text" class="form-control" placeholder="Ingrese la contraseña" 
-                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="password" class="form-control" placeholder="Ingrese la contraseña" 
+                                id="validationCustomUsername02" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback text-uppercase">
                                 Ingrese la contraseña.
                             </div>
@@ -103,12 +117,86 @@
                         </div>
                     </div>
                     <div class="col-12 d-grid gap-2">
-                        <button class="btn btn-primary" type="submit">Iniciar sesión</button>
+                        <button class="btn btn-primary" id="loguear" type="submit">Iniciar sesión</button>
                     </div>
                 </form>
-                <div class="col-12 pt-3 text-center">
-                    <p>¡Sí no esta registrado puede registrarse <a href="../vista/Registrar.html">aqui</a>!</p>
-                </div>
+            </div>
+
+            <!-- Panel de registro -->
+            <div class="px-lg-5 py-lg-4 p-4" id="idRegistro">
+                <p class="text-center fw-bold fs-4 mb-0">REGISTRAR</p>
+        <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
+                <div class="alert alert-danger" style="display: none;" role="alert" id="mensaje1"></div>
+        <!-- Formulario de Registrar ////////////////////////////////////////////////////////////// -->
+                <form method="POST" id="formRegistrar" class="row g-3 needs-validation" novalidate>
+                    <div class="">
+                        <label for="validationCustomUsername10" class="form-label">Nombre</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/usuario2.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="text" name="txtNombre" class="form-control" placeholder="Ingrese su nombre completo" 
+                                id="validationCustomUsername10" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese su nombre completo.
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-6">
+                        <label for="validationCustomUsername30" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/email.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="email" name="txtEmail" class="form-control" placeholder="Ingrese el email" 
+                                id="validationCustomUsername30" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese el correo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="validationCustomUsername20" class="form-label">Celular</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/llamar.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="number" name="txtCelular" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" placeholder="Ingrese su celular" 
+                                id="validationCustomUsername20" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese su número de celular.
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-6">
+                        <label for="validationCustomUsername40" class="form-label">Contraseña</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="password" class="form-control" placeholder="Ingrese la contraseña" 
+                                id="validationCustomUsername40" name="txtPass1" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Ingrese la contraseña.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustomUsername50" class="form-label">Contraseña</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" 
+                                id="iconImput" alt=""></span>
+                            <input type="password" class="form-control" placeholder="Ingrese su contraseña" 
+                                id="validationCustomUsername50" name="txtPass2" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback text-uppercase">
+                                Vuelva a ingresar la contraseña.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-grid gap-2 mt-4">
+                        <button class="btn btn-primary" value="registrar" id="registrar" type="submit">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -123,6 +211,10 @@
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous">
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+    
     <script src="../controlador/peticiones/ctnLogin.js" crossorigin="anonymous"></script>
+    <script src="../controlador/peticiones/validacionCamposLogin.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

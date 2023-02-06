@@ -1,3 +1,7 @@
+#idRegistro {
+    display: none;
+}
+
 #fondo {
     background-image: url(../galeria/iconos/fondoFlores.png);
     background-repeat: no-repeat;
