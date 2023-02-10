@@ -81,7 +81,7 @@
             <div class="px-lg-5 py-lg-4 p-4" id="idLogin">
                 <p class="text-center fw-bold fs-4 mb-0">INICIAR SESIÓN</p>
         <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
-        <div class="alert alert-danger" style="display: none;" role="alert" id="mensaje2"></div>
+        <div class="alert alert-danger text-center" style="display: none;" role="alert" id="mensaje2"></div>
         <!-- Formulario de login ////////////////////////////////////////////////////////////// -->
                 <form method="POST" id="formLoguearse" class="row g-3 needs-validation" novalidate>
                     <div class="">
@@ -89,7 +89,7 @@
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/email.png" 
                                 id="iconImput" alt=""></span>
-                            <input type="email" class="form-control" placeholder="Ingrese el email" 
+                            <input type="email" name="txtEmail" class="form-control" placeholder="Ingrese el email" 
                                 id="validationCustomUsername01" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback text-uppercase">
                                 Ingrese el correo.
@@ -101,22 +101,14 @@
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend"><img src="../galeria/iconos/padlock.png" 
                                 id="iconImput" alt=""></span>
-                            <input type="password" class="form-control" placeholder="Ingrese la contraseña" 
+                            <input type="password" name="txtPass" class="form-control" placeholder="Ingrese la contraseña" 
                                 id="validationCustomUsername02" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback text-uppercase">
                                 Ingrese la contraseña.
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
-                            <label class="form-check-label" for="invalidCheck">
-                                Mostrar contraseña
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12 d-grid gap-2">
+                    <div class="col-12 d-grid gap-2 mt-4">
                         <button class="btn btn-primary" id="loguear" type="submit">Iniciar sesión</button>
                     </div>
                 </form>
@@ -126,7 +118,7 @@
             <div class="px-lg-5 py-lg-4 p-4" id="idRegistro">
                 <p class="text-center fw-bold fs-4 mb-0">REGISTRAR</p>
         <!-- Mensaje de peligro ///////////////////////////////////////////////////////////// -->
-                <div class="alert alert-danger" style="display: none;" role="alert" id="mensaje1"></div>
+                <div class="alert alert-danger text-center" style="display: none;" role="alert" id="mensaje1"></div>
         <!-- Formulario de Registrar ////////////////////////////////////////////////////////////// -->
                 <form method="POST" id="formRegistrar" class="row g-3 needs-validation" novalidate>
                     <div class="">
@@ -194,7 +186,7 @@
                     </div>
 
                     <div class="col-12 d-grid gap-2 mt-4">
-                        <button class="btn btn-primary" value="registrar" id="registrar" type="submit">Registrar</button>
+                        <button class="btn btn-primary" id="registrar" type="submit">Registrar</button>
                     </div>
                 </form>
             </div>

@@ -21,11 +21,14 @@
     // 2 - error contraseña
     // 3 - error ya existe
     // 4 - hubo un error al guardar
-
+    // 5 - campos vacios
+    
     if(searchRepeated($email, $cn) == 1) {  // HACE USO DE LA FUNCTION DEL DOC .PHP
         $respuesta['estado'] = "3";
     } else if($pass1 != $pass2) {
         $respuesta['estado'] = "2";
+    } else if(empty($nombre) && empty($cel) && empty($email) && empty($pass1) && empty($pass2)) {
+        $respuesta['estado'] = "5";
     } else {
         $queryAdd = "INSERT INTO usuarios(Token,NombreCom,Email,Contrasena,Celular,IdTipoUsuario) VALUES ('$token','$nombre','$email','$passEncript','$cel','$tipoUsuario')";
 

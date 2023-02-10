@@ -1,5 +1,6 @@
 <?php
 
+    // BUSCA SI EXISTE EL EMAIL
     function searchRepeated($email, $cn) {
         $sql = "SELECT * FROM usuarios WHERE Email='$email'";
         $resultBusqueda = mysqli_query($cn, $sql);

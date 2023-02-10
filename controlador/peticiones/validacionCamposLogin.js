@@ -1,3 +1,4 @@
+'use strict';
 verificacion();
 
 // Verifica si hay campos vacios en el form

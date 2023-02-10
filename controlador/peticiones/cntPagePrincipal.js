@@ -12,13 +12,14 @@ document.getElementById("pageContactos").addEventListener("click", function(){
 })
 
 // Cargar desde un inivio //////////////////
+'use strict';
 cargarPageInicio();
 cargarSlider();
 
 // cargar pagina de inicio
 function cargarPageInicio() {
     const http = new XMLHttpRequest();
-    const url = '../nutricosmetic_rosy/vista/vistaUsuario/Inicio.php';
+    const url = './vista/vistaUsuario/Inicio.php';
     http.open('GET', url); 
     http.send();
 
@@ -33,7 +34,7 @@ function cargarPageInicio() {
 // cargar pagina de contacto
 function cargarContacto() {
     const http = new XMLHttpRequest();
-    const url = '../nutricosmetic_rosy/vista/vistaUsuario/Contacto.html';
+    const url = './vista/vistaUsuario/Contacto.html';
     http.open('GET', url);
     http.send();
 
@@ -47,7 +48,7 @@ function cargarContacto() {
 // cargar pagina de quien soy
 function cargarPageQuienesSomos() {
     const http = new XMLHttpRequest();
-    const url = '../nutricosmetic_rosy/vista/vistaUsuario/QuienesSomos.html';
+    const url = './vista/vistaUsuario/QuienesSomos.html';
     http.open('GET', url);
     http.send();
 
@@ -62,7 +63,7 @@ function cargarPageQuienesSomos() {
 // cargar slider de imagenes
 function cargarSlider() {
     const http = new XMLHttpRequest();
-    const url = '../nutricosmetic_rosy/vista/complementos/slider_imagenes.html';
+    const url = './vista/complementos/slider_imagenes.html';
     http.open('GET', url);
     http.send();
 
