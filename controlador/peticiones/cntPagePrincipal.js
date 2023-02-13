@@ -1,15 +1,11 @@
 // Acciones de botonses o lincks /////////////////////
-document.getElementById("pageInicio").addEventListener("click", function(){
-    cargarPageInicio();
-});
+document.getElementById("pageInicio").addEventListener("click", function(){ cargarPageInicio(); });
 
-document.getElementById("pageQuienesSomos").addEventListener("click", function(){
-    cargarPageQuienesSomos();
-});
+document.getElementById("pageQuienesSomos").addEventListener("click", function(){ cargarPageQuienesSomos(); });
 
-document.getElementById("pageContactos").addEventListener("click", function(){
-    cargarContacto();
-})
+document.getElementById("pageContactos").addEventListener("click", function(){ cargarContacto(); });
+
+document.getElementById("resp2").addEventListener("click", function(){ cargaPerfil(); });
 
 // Cargar desde un inivio //////////////////
 'use strict';
@@ -70,6 +66,20 @@ function cargarSlider() {
     http.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             document.getElementById("contenedor_slider").innerHTML = this.responseText;
+        }
+    }
+}
+
+// carga pagina de perfil
+function cargaPerfil() {
+    const http = new XMLHttpRequest();
+    const url = './vista/vistaUsuario/Perfil.php';
+    http.open('GET', url);
+    http.send();
+
+    http.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            document.getElementById("contenedorPrincipal").innerHTML = this.responseText;
         }
     }
 }

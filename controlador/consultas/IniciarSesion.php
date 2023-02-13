@@ -42,7 +42,6 @@
             $busquedaToken = $busqueda['Token'];
 
             // ALMACENANDO EN SESSION
-			$_SESSION['NomUsuario'] = $busquedaNombre;
             $_SESSION['Email'] = $busquedaEmail;
             $_SESSION['Token'] = $busquedaToken;
 
