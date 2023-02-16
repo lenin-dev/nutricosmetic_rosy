@@ -35,3 +35,24 @@
             return 0;
         }
     }
+
+    // VERIFICAR DIRECCION
+    function verificarDireccion() {
+        require_once("./conexion.php");
+        session_start();
+        $null = null;
+        $array = array();
+
+        if(!empty($_SESSION['Token'])) {
+            $queryDireccion = "SELECT IdDireccion FROM usuarios WHERE IdDireccion='$null'";
+            if($resp = $cn->query($queryDireccion)) {
+                $array['resp'] = "1";
+            } else {
+                $array['resp'] = "0";
+            }
+        }
+        
+        // CONVIERTE E IMPRIME EL ARRAY EN UN OBJETO JSON
+        header('Content-Type: application/json');
+        echo json_encode($array);
+    }

@@ -69,17 +69,3 @@ function cargarSlider() {
         }
     }
 }
-
-// carga pagina de perfil
-function cargaPerfil() {
-    const http = new XMLHttpRequest();
-    const url = './vista/vistaUsuario/Perfil.php';
-    http.open('GET', url);
-    http.send();
-
-    http.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            document.getElementById("contenedorPrincipal").innerHTML = this.responseText;
-        }
-    }
-}
