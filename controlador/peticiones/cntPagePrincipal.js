@@ -3,14 +3,26 @@ document.getElementById("pageInicio").addEventListener("click", function(){ carg
 
 document.getElementById("pageQuienesSomos").addEventListener("click", function(){ cargarPageQuienesSomos(); });
 
-document.getElementById("pageContactos").addEventListener("click", function(){ cargarContacto(); });
-
 document.getElementById("resp2").addEventListener("click", function(){ cargaPerfil(); });
+
+window.addEventListener("load", function() {
+    cargaURL();
+});
 
 // Cargar desde un inivio //////////////////
 'use strict';
 cargarPageInicio();
 cargarSlider();
+
+function cargaURL() {
+    const rutaActual = window.location.hash;
+
+    if(rutaActual == "#productos") {
+        cargarPageInicio();
+    } else if(rutaActual == "#quiensoy") {
+        cargarPageQuienesSomos();
+    }
+}
 
 // cargar pagina de inicio
 function cargarPageInicio() {
@@ -22,20 +34,6 @@ function cargarPageInicio() {
     http.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             //console.log(this.responseText);
-            document.getElementById("contenedorPrincipal").innerHTML = this.responseText;
-        }
-    }
-}
-
-// cargar pagina de contacto
-function cargarContacto() {
-    const http = new XMLHttpRequest();
-    const url = './vista/vistaUsuario/Contacto.html';
-    http.open('GET', url);
-    http.send();
-
-    http.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
             document.getElementById("contenedorPrincipal").innerHTML = this.responseText;
         }
     }

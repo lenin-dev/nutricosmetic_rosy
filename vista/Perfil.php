@@ -41,7 +41,55 @@
 </head>
 <body  id="fondo">
 
-    <div id="contMenu"></div>
+    <!-- encabezado, menu principal ////////////////////////////////////////////////////// -->
+    <!-- nombre y logo de la pagina /////////////////////////////////////////////// -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #F6C62E">
+        <div class="container-sm">
+            <a class="navbar-brand mb-0 h1" href="../index.html">
+                <img src="../galeria/iconos/iconotienda.png" alt="Logo" width="40" height="40" 
+                class="d-inline-block align-text-center">
+            </a>
+    <!-- boton hamburguesa /////////////////////////////////////////////////// -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+            </button>
+    <!-- opciones del menu ////////////////////////////////////////////////////////// -->
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active fs-6 fw-bold" id="pageInicio" aria-current="page" href="../#productos">INICIO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="../#quiensoy">QUIÉN SOY</a>
+                </li>
+                <li class="nav-item mb-2 mt-2">
+                    <a href="#" class="btn-transparent position-relative mx-3">
+                        <img src="../galeria/iconos/carrito-de-compras.png" height="30" width="30" alt="carrito-de-compras">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            1
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+    <!-- icono de usuario /////////////////////////////////////////////////////////////// -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../galeria/iconos/usuario.png" id="imgIconNavbar" alt="Logo" width="40" height="40" class="iconUsuario d-inline-block align-text-center">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a id="prod" class="dropdown-item" href="">Administrar productos</a></li>
+                        <li><a id="resp2" class="dropdown-item" href="../vista/Perfil.php">Perfil</a></li>
+                        <li><hr id="resp3" class="dropdown-divider" id="resp"></li>
+                        <li><a id="resp4" class="dropdown-item" href="controlador/consultas/cerrarSesion.php">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Modal Editar imagen -->
     <div class="modal fade text-center" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -100,58 +148,6 @@
                 <input type="text" name="celular" value="<?php echo $celular; ?>" class="form-control my-2" disabled>
             </div>
         </div>
-        <div clss="container" hidden>
-            <div class="mt-4">
-                <p class="fw-bold fs-3 mt-4 my-2 text-center">Dirección</p>
-                <div class="contButton mx-auto my-3">
-                    <button class="bntAdd" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                        <span class="contIcon"><svg class="iconAdd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z"/></svg></span>
-                        Agregar dirección
-                    </button>
-                </div>
-                <div class="row justify-content-md-cente">
-                    <div class="col col-lg-6 mx-auto mb-5">
-
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        Dirección
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <div class="row">
-                                            <div class="col-6 col-sm-6 my-2">
-                                                <label>Colonía</label>
-                                                <input type="text" class="form-control" disabled value="colonia">
-                                            </div>
-                                            <div class="col-6 col-sm-6 my-2">
-                                                <label>Dirección</label>
-                                                <input type="text" class="form-control" disabled value="direccion">
-                                            </div>
-                                            <div class="col-6 col-sm-6 my-2">
-                                                <label>Código postal</label>
-                                                <input type="text" class="form-control" disabled value="cp">
-                                            </div>
-                                            <div class="col-6 col-sm-6 my-2">
-                                                <label>Núm. Exterior</label>
-                                                <input type="text" class="form-control" disabled value="Exterior">
-                                            </div>
-                                            <div class="col-6 col-sm-6 my-2">
-                                                <label>Núm. Interior</label>
-                                                <input type="text" class="form-control" disabled value="Interior">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>   
-            </div>
-        </div>
     </section>
 
     <!-- JavaScript Bundle with Popper ////////////////////////////////////////////////////// -->
@@ -160,13 +156,10 @@
     crossorigin="anonymous">
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" 
-    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous">
-    </script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
 
     <script src="../controlador/peticiones/actualizarUsuario.js"></script>
+    <script src="../controlador/peticiones/validacionUsuario.js"></script>
 
 </body>
 </html>

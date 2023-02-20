@@ -32,10 +32,10 @@
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active fs-6 fw-bold" id="pageInicio" aria-current="page" href="#/productos">INICIO</a>
+                    <a class="nav-link active fs-6 fw-bold" id="pageInicio" aria-current="page" href="#productos">INICIO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="#/quiensoy">QUIÉN SOY</a>
+                    <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="#quiensoy">QUIÉN SOY</a>
                 </li>
                 <li class="nav-item" hidden>
                     <a class="nav-link active fs-6 fw-bold" id="pageContactos" href="#/contacto">CONTACTO</a>
@@ -54,10 +54,10 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="./galeria/iconos/usuario.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-center">
+                        <img src="./galeria/iconos/usuario.png" id="imgIconNavbar" alt="Logo" width="40" height="40" class="iconUsuario d-inline-block align-text-center">
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a id="resp1" class="dropdown-item" href="./vista/IniciarSesion.html">Iniciar sesión</a></li>
+                        <li><a id="resp1" class="dropdown-item" href="vista/IniciarSesion.html">Iniciar sesión</a></li>
                         <li><a id="prod" class="dropdown-item" href="#/crudprod">Administrar productos</a></li>
                         <li><a id="resp2" class="dropdown-item" href="vista/Perfil.php">Perfil</a></li>
                         <li><hr id="resp3" class="dropdown-divider" id="resp"></li>
@@ -85,31 +85,31 @@
             <nav class="row justify-content-center">
                 <div class="col-lg-3 mb-4">
                     <a href="" class="d-inline-block mb-2 align-text-center text-reset text-uppercase nav-link">
-                        <img src="../nutricosmetic_rosy/galeria/iconos/iconotienda.png" alt="Logo" width="40" height="40" 
+                        <img src="./galeria/iconos/iconotienda.png" alt="Logo" width="40" height="40" 
                         class="d-block me-2">
                         <span class="fs-5 fw-bold">Nutri Cosmitc Rosy</span>
                     </a>
                 </div>
     <!-- primera columna de footer ////////////////////////////////// -->
-                <div class="col-6 col-lg-2 mb-3">
+                <div class="col-6 col-lg-2 mb-3" hidden>
                     <ul class="col-6 list-unstyled">
                         <li class="mb-2 text-uppcase fs-6 fw-bold">ADICIONAL</li>
-                        <li><a href="#inicio" class="text-reset nav-link mb-2">Inicio</a></li>
-                        <li><a href="#quiensoy" class="text-reset nav-link mb-2">Quién soy</a></li>
-                        <li><a href="#contacto" class="text-reset nav-link mb-2">Contacto</a></li>
+                        <li><a href="./#/productos" id="pageInicio" class="text-reset nav-link mb-2">Inicio</a></li>
+                        <li><a id="pageQuienesSomos" href="./#/quiensoy" class="text-reset nav-link mb-2">Quién soy</a></li>
+                        <li hidden><a href="#/contacto" class="text-reset nav-link mb-2">Contacto</a></li>
                     </ul>
                 </div>
     <!-- tercera columna del footer //////////////////////////////////////// -->
-                <div class="col-6 col-lg-2 mb-3">
+                <div class="col-6 col-lg-2 mb-2">
                     <ul class="list-unstyled">
-                        <li class="text-uppcase fs-6 fw-bold">REDES SOCIALES</li>
+                        <li class="text-uppcase fs-6 fw-bold text-center">REDES SOCIALES</li>
                         <li class="mb-2 d-flex justify-content-between py-2">
                             <a href="#" class="text-reset">
-                                <img src="../nutricosmetic_rosy/galeria/iconos/whatsapp2.png" alt="Logo" width="30" 
+                                <img src="./galeria/iconos/whatsapp2.png" alt="Logo" width="30" 
                                     height="30" class="d-inline-block align-text-center">
                             </a>
                             <a href="#" class="text-reset">
-                                <img src="../nutricosmetic_rosy/galeria/iconos/facebook.png" alt="Logo" width="30" 
+                                <img src="./galeria/iconos/facebook.png" alt="Logo" width="30" 
                                     height="30" class="d-inline-block align-text-center">
                             </a>
                         </li>
@@ -117,7 +117,7 @@
                     </ul>
                 </div>
             </nav>
-            <p class="fs-5 mx-auto pt-3 d-block text-center"><a class="text-decoration-none" href="" >C.L.I.N. &copy;</a> Todos Los Derechos Reservados 2023</p>
+            <p class="fs-5 mx-auto pt-3 d-block text-center"><a class="text-decoration-none" href="" >ScriptWeb &copy;</a> Todos Los Derechos Reservados 2023</p>
         </div>
     </footer>
 

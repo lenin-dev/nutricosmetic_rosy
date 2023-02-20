@@ -15,7 +15,6 @@
     // VERIFICA TIPO DE USUARIO AGREGADO A LA SESSION
     function validarTipoUsuario() {
         require_once("./conexion.php");
-        // session_start();
         $token = $_SESSION['Token'];
         $queryTipoUsuario = "SELECT * FROM usuarios WHERE Token='$token'";
 

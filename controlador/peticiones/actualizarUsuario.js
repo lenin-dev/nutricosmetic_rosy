@@ -1,16 +1,3 @@
-window.addEventListener("load", e => {
-    const http = new XMLHttpRequest();
-
-    var url = "../vista/complementos/navbar.php";
-
-    http.open("POST", url);
-    http.send();
-    http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-            document.getElementById("contMenu").innerHTML = http.responseText;
-        }
-    }
-});
 
 // MOSTRAR IMAGEN
 const mostrar = (event) => {
@@ -41,7 +28,7 @@ formActualizar.onsubmit = a => {
     a.preventDefault();
     var url = "../controlador/consultas/ActualizarDatosUsu.php";
 
-    http.open("POST", url);
+    http.open("POST", url, true);
     http.send(fm);
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {

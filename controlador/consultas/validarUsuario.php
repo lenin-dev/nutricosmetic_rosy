@@ -1,6 +1,6 @@
 <?php
 
-    require_once("./conBuscarEmail.php");
+    require_once("../consultas/conBuscarEmail.php");
     session_start();
     $respuesta = array();
 
