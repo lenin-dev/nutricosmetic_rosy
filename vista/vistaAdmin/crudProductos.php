@@ -1,25 +1,21 @@
-<?php
-    session_start();
-    if(empty($_SESSION['Token'])) {
-        header("location: ./../IniciarSesion.html");
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Productos</title>
+
     <link rel="stylesheet" href="../../estilos/estiloPrin.css">
 
     <!-- BOOTSTRAP y sweetalert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
         crossorigin="anonymous">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Productos</title>
 </head>
 <body id="fondo">
 
@@ -72,6 +68,89 @@
             </ul>
         </div>
     </nav>
+
+    <section class="container my-5 mx-auto py-4 px-4 bg-light text-center" id="border-radius">
+        <div class="row">
+            <div class="col">
+                <p class="fw-bold fs-3">AGREGAR</p>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-2">
+                <button type="button" class="btn btn-info">Producto</button>
+            </div>
+            <div class="col col-lg-2">
+                <button type="button" class="btn btn-warning">Categoría</button>
+            </div>
+            <div class="col col-lg-2">
+                <button type="button" class="btn btn-danger">Marca</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="fw-bold fs-3 mt-4">PRODUCTOS</p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 justify-content-end">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Porción</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Oferta</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Otto</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Otto</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Otto</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
     
 
     <!-- JavaScript Bundle with Popper ////////////////////////////////////////////////////// -->
@@ -81,6 +160,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+
     <script src="../../controlador/peticiones/validacionUsuario.js"></script>
 
 </body>

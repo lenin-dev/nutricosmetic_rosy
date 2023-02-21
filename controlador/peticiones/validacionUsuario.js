@@ -1,8 +1,31 @@
 window.addEventListener("load", function(){
     cargarUsu();
     cargarImagenicon();
+    valUsuAdmin();
 });
 
+function valUsuAdmin() {
+    const http = new XMLHttpRequest();
+    const url = '../../controlador/consultas/validarAdmin.php';
+    const rutaActual = window.location.pathname;
+
+    if(rutaActual == "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php") {
+        http.open('POST', url, true);
+        http.send();
+    }
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            var respuesta = JSON.parse(http.responseText);
+
+            if(respuesta.estado != 1) {
+                 window.location.href = "../../";
+            }
+        }
+    }
+}
+
+// CARGA EL ICONO DEL NAVBAR
 function cargarImagenicon() {
     const http = new XMLHttpRequest();
     const url = "./controlador/consultas/mostrarImagen.php";
