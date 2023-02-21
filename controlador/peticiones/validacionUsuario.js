@@ -7,10 +7,13 @@ function cargarImagenicon() {
     const http = new XMLHttpRequest();
     const url = "./controlador/consultas/mostrarImagen.php";
     const url1 = "../controlador/consultas/mostrarImagen.php";
+    const url2 = '../../controlador/consultas/mostrarImagen.php';
     const rutaActual = window.location.pathname;
 
     if(rutaActual == "/nutricosmetic_rosy/vista/Perfil.php") {
         http.open('POST', url1, true);
+    } else if(rutaActual == "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php") {
+        http.open('POST', url2, true);
     } else {
         http.open('POST', url, true);
     }
@@ -19,13 +22,19 @@ function cargarImagenicon() {
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
         var respuesta = JSON.parse(http.responseText);
-            if (respuesta.imagen != null) {
-                document.getElementById('imgIconNavbar').src = respuesta.imagen;
+        var contImagenIcon = document.getElementById('imgIconNavbar');
+
+            if (respuesta.contImagen != 1) {
+                // contImagenIcon.src = "./galeria/iconos/usuario.png";
             } else {
                 if(rutaActual == "/nutricosmetic_rosy/vista/Perfil.php") {
-                    document.getElementById('imgIconNavbar').src = respuesta.imagen1;
+                    contImagenIcon.src = respuesta.imagen1;
+
+                } else if(rutaActual == "/nutricosmetic_rosy/index.html" || rutaActual == "/nutricosmetic_rosy/") {
+                    contImagenIcon.src = respuesta.imagen2;
+
                 } else {
-                    document.getElementById('imgIconNavbar').src = respuesta.imagen2;
+                    contImagenIcon.src = respuesta.imagen3;
                 }
             }
         }
@@ -42,10 +51,13 @@ function cargarUsu() {
     const http = new XMLHttpRequest();
     const url = './controlador/consultas/validarUsuario.php';
     const url1 = '../controlador/consultas/validarUsuario.php';
-    // var pathname = window.location.pathname;    LOCALIZACION ACTUAL DE LA PAGINA
+    const url2 = '../../controlador/consultas/validarUsuario.php';
+    var rutaActual = window.location.pathname;    // LOCALIZACION ACTUAL DE LA PAGINA
 
-    if(window.location.pathname == "/nutricosmetic_rosy/vista/Perfil.php") {
+    if(rutaActual == "/nutricosmetic_rosy/vista/Perfil.php") {
         http.open('POST', url1, true);
+    } else if(rutaActual == "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php") {
+        http.open('POST', url2, true);
     } else {
         http.open('POST', url, true);
     }

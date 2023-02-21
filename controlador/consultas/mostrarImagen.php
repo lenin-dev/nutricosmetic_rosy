@@ -2,12 +2,13 @@
 
     require_once("./conexion.php");
     session_start();
-    $clave = $_SESSION['Token'];
     $respuesta = array();
 
     if(empty($_SESSION['Token'])) {
-        header("location: ../vista/IniciarSesion.html");
+        $respuesta['contImagen'] = 2;
     } else {
+        $respuesta['contImagen'] = 1;
+        $clave = $_SESSION['Token'];
         $queryGetUsu = "SELECT * FROM usuarios WHERE Token='$clave'";
         if($ejecutarQueary = $cn->query($queryGetUsu)) {
 
@@ -17,6 +18,7 @@
                 } else {
                     $respuesta['imagen1'] = "..".$busqueda['DirecImagen'];
                     $respuesta['imagen2'] = ".".$busqueda['DirecImagen'];
+                    $respuesta['imagen3'] = "../..".$busqueda['DirecImagen'];
                 }
             }
         }

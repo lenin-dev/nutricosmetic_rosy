@@ -81,10 +81,10 @@
                         <img src="../galeria/iconos/usuario.png" id="imgIconNavbar" alt="Logo" width="40" height="40" class="iconUsuario d-inline-block align-text-center">
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a id="prod" class="dropdown-item" href="">Administrar productos</a></li>
+                        <li><a id="prod" class="dropdown-item" href="../vista/vistaAdmin/crudProductos.php">Administrar productos</a></li>
                         <li><a id="resp2" class="dropdown-item" href="../vista/Perfil.php">Perfil</a></li>
                         <li><hr id="resp3" class="dropdown-divider" id="resp"></li>
-                        <li><a id="resp4" class="dropdown-item" href="controlador/consultas/cerrarSesion.php">Cerrar sesión</a></li>
+                        <li><a id="resp4" class="dropdown-item" href="../controlador/consultas/cerrarSesion.php">Cerrar sesión</a></li>
                     </ul>
                 </li>
             </ul>
