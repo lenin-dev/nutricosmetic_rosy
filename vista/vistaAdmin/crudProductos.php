@@ -77,13 +77,13 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-info">Producto</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticAddProductos">Producto</button>
             </div>
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-warning">Categoría</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticAddCategoria">Categoría</button>
             </div>
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-danger">Marca</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticAddMarca">Marca</button>
             </div>
         </div>
         <div class="row">
@@ -151,6 +151,140 @@
             </div>
         </div>
     </section>
+
+    <!--                 -->
+    <!-- MODAL CONTAINER -->
+    <!--                 -->
+
+    <!-- Modal Add Productos -->
+    <div class="modal fade modal-lg" id="staticAddProductos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticAddProductos">Agregar productos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarProductos" name="formAgregarProductos" method="post">
+                        <div class="alert alert-danger text-center" id="mensaje4" role="alert" style="display: none;"></div>
+                        <div class="row row-cols-2 g-0">
+                            <!-- div de la imagen contenedor -->
+                            <div class="col-6 col-lg-6 col-sm-12">
+                                <div class="mb-3 text-center">
+                                   <img src="../../galeria/iconos/agregar.png" class="img-fluid rounded my-auto mx-auto d-block" width="300" height="300" name="imagenUsuario" id="imagenUsuario" alt="Imagen del producto">
+                                    <div class="file-input mt-4">
+                                        <input type="file" name="file-input" onchange="mostrar(event)" id="file-input" class="file-input__input"/>
+                                        <label class="file-input__label" for="file-input"><path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>
+                                        <span>Subir imagen</span>
+                                    </label> 
+                                </div>
+                            </div>
+                            </div>
+                            <!-- div del formulario contenedor -->
+                            <div class="col-6 col-lg-6 col-sm-12">
+                                <label for="inputNombreProducto" class="form-label">Nombre producto</label>
+                                <input type="text" class="form-control" name="txtProducto" id="inputNombreProducto" placeholder="Nombre producto">
+
+                                <div class="row row-cols-2 mt-3">
+                                    <div class="col-6">
+                                        <label for="selectCategoria" class="form-label">Categoría</label>
+                                        <select class="form-select" name="txtCategoria" id="selectCategoria" aria-label="Default select example">
+                                            <option selected>Categorías</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="selectMarca" class="form-label">Marca</label>
+                                        <select class="form-select" name="txtMarca" id="selectMarca" aria-label="Default select example">
+                                            <option selected>Marcas</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row row-cols-2 mt-3">
+                                    <div class="col-6">
+                                        <label for="inputPrecio" class="form-label">Precio</label>
+                                        <input type="text" name="txtPrecio" class="form-control" id="inputPrecio" placeholder="$ 0.00 mx">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputProcion" class="form-label">Porción</label>
+                                        <input type="text" name="txtPorcion" class="form-control" id="inputProcion" placeholder="0 gr / lt / ml">
+                                    </div>
+                                </div>
+
+                                <div class="row row-cols-2 mt-3">
+                                    <div class="col-6 my-auto mx-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                            <label class="form-check-label" name="inlineFormCheck" for="inlineFormCheck">
+                                                ¿Está en oferta?
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="inputOferta" class="form-label">Oferta</label>
+                                        <input type="text" name="txtOferta" disabled class="form-control" id="inputOferta" placeholder="$ 0.00 mx">
+                                    </div>
+                                </div>
+
+                                <label for="textTareaDescripcion mt-3" class="form-label">Descripción</label>
+                                <textarea class="form-control" name="txtDescripcion" id="textTareaDescripcion" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="sumit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add Productos -->
+    <div class="modal fade modal-sm" id="staticAddCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticAddCategoria">Agregar categorías</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Marca -->
+    <div class="modal fade modal-sm" id="staticAddMarca" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticAddMarca">Agregar marcas</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+            </div>
+        </div>
+    </div>
     
 
     <!-- JavaScript Bundle with Popper ////////////////////////////////////////////////////// -->
@@ -162,6 +296,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
 
     <script src="../../controlador/peticiones/validacionUsuario.js"></script>
+    <script src="../../controlador/peticiones/crudProducto.js"></script>
+
 
 </body>
 </html>

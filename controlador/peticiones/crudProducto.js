@@ -1,4 +1,15 @@
 'use strict'
+var inputOferta = document.getElementById("inputOferta");
+var check = document.getElementById("inlineFormCheck");
+check.addEventListener("change", function() {
+    if(inputOferta.disabled == true) {
+        inputOferta.disabled = false;
+    } else {
+        inputOferta.disabled = true;
+    }
+
+})
+
 // MOSTRAR IMAGEN
 const mostrar = (event) => {
     let img = document.getElementById('imagenUsuario');
@@ -12,35 +23,30 @@ const mostrar = (event) => {
     mostrarIamgen.readAsDataURL(event.target.files[0]);
 }
 
-// RECARGAR LA PAGINA
-var btnCerrar = document.getElementById("reload");
-btnCerrar.addEventListener("click", () => {
-    location.reload();
-});
 
-
-// ACCION ACTUALIZAR
-var formActualizar = document.getElementById('formActualizarDatos');
-formActualizar.onsubmit = a => {
-    var fm = new FormData(formActualizar);
+// AGREGAR PRODUCTO
+var formAgregarProductos = document.getElementById('formAgregarProductos');
+formAgregarProductos.onsubmit = a => {
+    var fm = new FormData(formAgregarProductos);
     const http = new XMLHttpRequest();
   
     a.preventDefault();
-    var url = "../controlador/consultas/ActualizarDatosUsu.php";
+    var url = "../../controlador/consultas/AgregarProd.php";
 
     http.open("POST", url, true);
     http.send(fm);
+
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-            var mensaje = document.getElementById("mensaje3");
+            var mensaje = document.getElementById("mensaje4");
             var respuesta = JSON.parse(http.responseText);
         
             if (respuesta.estado == "3") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "Hubo un error al actualizar, vuelvalo a intentar";
+                mensaje.innerHTML = "Inserte una imagen del producto";
             } else if (respuesta.estado == "2") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "El tipo de imagen debe de ser jpg, png o jpeg";
+                mensaje.innerHTML = respuesta.estado;
             } else if (respuesta.estado == "1") {
             
                 Swal.fire({

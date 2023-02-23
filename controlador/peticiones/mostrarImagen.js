@@ -1,3 +1,4 @@
+'use strict'
 const mostrar = (event) => {
     let img = document.getElementById('imagenUsuario');
     let mostrarIamgen = new FileReader();

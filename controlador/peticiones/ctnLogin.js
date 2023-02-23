@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 document.getElementById("btnradio1").addEventListener("click", function(){ login(); });
 
 document.getElementById("btnradio2").addEventListener("click", function(){ registrar(); });
