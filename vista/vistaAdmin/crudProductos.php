@@ -77,13 +77,13 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticAddProductos">Producto</button>
+                <button type="button" class="btn btn-info fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddProductos">Producto</button>
             </div>
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticAddCategoria">Categoría</button>
+                <button type="button" id="btncat" class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddCategoria">Categoría</button>
             </div>
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticAddMarca">Marca</button>
+                <button type="button" id="btnMarca" class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddMarca">Marca</button>
             </div>
         </div>
         <div class="row">
@@ -104,7 +104,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Imagen</th>
+                            <th scope="col">#</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Categoría</th>
                             <th scope="col">Producto</th>
@@ -182,13 +182,16 @@
                             </div>
                             <!-- div del formulario contenedor -->
                             <div class="col-6 col-lg-6 col-sm-12">
+
                                 <label for="inputNombreProducto" class="form-label">Nombre producto</label>
-                                <input type="text" class="form-control" name="txtProducto" id="inputNombreProducto" placeholder="Nombre producto">
+                                <input type="text" class="form-control" name="txtProducto" 
+                                id="inputNombreProducto" placeholder="Nombre producto" required>
 
                                 <div class="row row-cols-2 mt-3">
                                     <div class="col-6">
+                                        
                                         <label for="selectCategoria" class="form-label">Categoría</label>
-                                        <select class="form-select" name="txtCategoria" id="selectCategoria" aria-label="Default select example">
+                                        <select class="form-select" name="txtCategoria" id="selectCategoria" aria-label="Default select example" required>
                                             <option selected>Categorías</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
@@ -197,7 +200,7 @@
                                     </div>
                                     <div class="col-6">
                                         <label for="selectMarca" class="form-label">Marca</label>
-                                        <select class="form-select" name="txtMarca" id="selectMarca" aria-label="Default select example">
+                                        <select class="form-select" name="txtMarca" id="selectMarca" aria-label="Default select example" required>
                                             <option selected>Marcas</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
@@ -209,11 +212,11 @@
                                 <div class="row row-cols-2 mt-3">
                                     <div class="col-6">
                                         <label for="inputPrecio" class="form-label">Precio</label>
-                                        <input type="text" name="txtPrecio" class="form-control" id="inputPrecio" placeholder="$ 0.00 mx">
+                                        <input type="text" name="txtPrecio" class="form-control" id="inputPrecio" placeholder="$ 0.00 mx" required>
                                     </div>
                                     <div class="col-6">
                                         <label for="inputProcion" class="form-label">Porción</label>
-                                        <input type="text" name="txtPorcion" class="form-control" id="inputProcion" placeholder="0 gr / lt / ml">
+                                        <input type="text" name="txtPorcion" class="form-control" id="inputProcion" placeholder="0 gr / lt / ml" required>
                                     </div>
                                 </div>
 
@@ -234,7 +237,7 @@
                                 </div>
 
                                 <label for="textTareaDescripcion mt-3" class="form-label">Descripción</label>
-                                <textarea class="form-control" name="txtDescripcion" id="textTareaDescripcion" rows="3"></textarea>
+                                <textarea class="form-control" name="txtDescripcion" id="textTareaDescripcion" rows="3" required></textarea>
                             </div>
                         </div>
                         <div class="modal-footer mt-3">
@@ -248,40 +251,72 @@
     </div>
 
 
-    <!-- Modal Add Productos -->
-    <div class="modal fade modal-sm" id="staticAddCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Add Categorias -->
+    <div class="modal fade modal-md" id="staticAddCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticAddCategoria">Agregar categorías</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticAddCategoria">Agregar categorías</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarCategoria" name="formAgregarCategoria" method="post">
+                        <div class="alert alert-danger text-center" id="mensaje5" role="alert" style="display: none;"></div>
+                        <div class="row row-cols-2 g-0">
+                            <div class="col-5 col-lg-5">
+                                <p>Lista de categorías</p>
+
+                                <ul id="listaCategoria">
+                                    
+                                </ul>
+
+                            </div>
+                            <div class="col-7 col-lg-7">
+                                <label for="inputCategoria" class="form-label">Categoría</label>
+                                <input type="text" required class="form-control" name="txtCategoria" id="inputCategoria" placeholder="Categoría(protector solar, bebida)">
+                            </div>
+                        </div>
+                        <div class="modal-footer mt-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" id="addCategoria" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Add Marca -->
-    <div class="modal fade modal-sm" id="staticAddMarca" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade modal-md" id="staticAddMarca" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticAddMarca">Agregar marcas</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticAddMarca">Agregar marcas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarMarca" name="formAgregarMarca" method="post">
+                        <div class="alert alert-danger text-center" id="mensaje6" role="alert" style="display: none;"></div>
+                        <div class="row row-cols-2 g-0">
+                            <div class="col-5 col-lg-5">
+                                <p>Lista de marcas</p>
+
+                                <ul id="listaMarca">
+                                    
+                                </ul>
+
+                            </div>
+                            <div class="col-7 col-lg-7">
+                                <label for="inputMarca" class="form-label">Marca</label>
+                                <input type="text" required class="form-control" name="txtMarca" id="inputMarca" placeholder="Introdusca la marca">
+                            </div>
+                        </div>
+                        <div class="modal-footer my-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" id="addMarca" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
