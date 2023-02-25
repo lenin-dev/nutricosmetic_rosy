@@ -124,11 +124,11 @@ function verSelectMarca() {
 
 // AGREGAR PRODUCTO
 var formAgregarProductos = document.getElementById('formAgregarProductos');
-formAgregarProductos.onsubmit = a => {
+formAgregarProductos.onsubmit = i => {
     var fm = new FormData(formAgregarProductos);
     const http = new XMLHttpRequest();
   
-    a.preventDefault();
+    i.preventDefault();
     var url = "../../controlador/consultas/AgregarProd.php";
 
     http.open("POST", url, true);
@@ -201,7 +201,7 @@ function verCategorias() {
         if(this.readyState == 4 && this.status == 200) {
             var respuesta = JSON.parse(http.responseText);
             listaCategoria.replaceChildren();
-            console.log(respuesta);
+            // console.log(respuesta);
 
             for(var i = 0; i < respuesta.length; i++) {
                 var li = document.createElement("li");

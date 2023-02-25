@@ -103,7 +103,7 @@ formRegister.onsubmit = e => {
           icon: "success",
           title: "Datos almacenados",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 4000,
         });
       } else {
         login();
