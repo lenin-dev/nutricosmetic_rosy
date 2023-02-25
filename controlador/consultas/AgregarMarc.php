@@ -5,7 +5,7 @@
     $txtMarca = strtolower($_POST['txtMarca']);
     $respuesta = array();
 
-    if(buscarRepetido($txtMarca, $cn) == 0) {
+    if(buscarRepetido($txtMarca, $cn) == 1) {
         $respuesta['estado'] = "3";
     } else {
         if(addMarc($txtMarca, $cn) == 1) {
@@ -25,8 +25,9 @@
     }
 
     function buscarRepetido($txtMarca, $cn) {
-        $queryBuscarCat = "SELECT * FROM marca WHERE NomMarca='$txtMarca'";
-        if($resp = $cn->query($queryBuscarCat)) {
+        $queryBuscarCat = "SELECT NomMarca FROM marca WHERE NomMarca='$txtMarca'";
+        $resultado = $cn->query($queryBuscarCat);
+        if(mysqli_num_rows($resultado)>0) {
             return 1;
         } else {
             return 0;

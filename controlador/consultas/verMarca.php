@@ -3,7 +3,7 @@
     include_once("../../controlador/consultas/conexion.php");
     $respuesta = array();
 
-    $querySelect = "SELECT NomMarca FROM marca ORDER BY NomMarca asc";
+    $querySelect = "SELECT * FROM marca ORDER BY NomMarca asc";
 
     if($result = $cn->query($querySelect)) {
 

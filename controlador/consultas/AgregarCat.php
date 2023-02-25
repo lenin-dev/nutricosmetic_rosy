@@ -5,7 +5,7 @@
     $txtCategoria = strtolower($_POST['txtCategoria']);
     $respuesta = array();
 
-    if(buscarRepetido($txtCategoria, $cn) == 0) {
+    if(buscarRepetido($txtCategoria, $cn) == 1) {
         $respuesta['estado'] = "3";
     } else {
         if(addCat($txtCategoria, $cn) == 1) {
@@ -26,7 +26,8 @@
 
     function buscarRepetido($txtCategoria, $cn) {
         $queryBuscarCat = "SELECT * FROM categoria WHERE NomCategoria='$txtCategoria'";
-        if($resp = $cn->query($queryBuscarCat)) {
+        $resp = $cn->query($queryBuscarCat);
+        if(mysqli_num_rows($resp)>0) {
             return 1;
         } else {
             return 0;

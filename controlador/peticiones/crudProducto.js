@@ -23,6 +23,104 @@ const mostrar = (event) => {
     mostrarIamgen.readAsDataURL(event.target.files[0]);
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+btnProd.addEventListener("click", function(evento) {
+    cargaMarSelect(evento);
+    cargaCatSelect(evento);
+});
+
+// EVENTO PARA NO REPETIR MOSTRAR CATEGORIAS
+function cargaCatSelect(evento) {
+    verSelectCategorias();
+    /* Si el atributo "data-cargado" vale "si" evitamos la descarga */
+    if (evento.target.dataset.cargado != "si") {
+        // console.log("Cargando categorías");
+        verSelectCategorias();
+
+       evento.target.dataset.cargado = "si";
+    }
+}
+// VER CATEGORIAS EN SELECTES PRODUCTOS
+verSelectCategorias();
+function verSelectCategorias() {
+    var select = document.getElementById("selectCategoria");
+    const http = new XMLHttpRequest();
+    const url = '../../controlador/consultas/verCategorias.php';
+
+    http.open('POST', url, true); 
+    http.send();
+
+    http.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            var respuesta = JSON.parse(http.responseText);
+            
+            selectCategoria.replaceChildren();
+            var option1 = document.createElement("option");
+            // option1.setAttribute("selected");
+            let valor1 = document.createTextNode("Escoge una categoría");
+            option1.appendChild(valor1);
+            select.appendChild(option1);
+
+            for(var i = 0; i < respuesta.length; i++) {
+
+                var option = document.createElement("option");
+                option.setAttribute("value", respuesta[i].IdCategoria);
+                let valor = document.createTextNode(respuesta[i].NomCategoria);
+                option.appendChild(valor);
+                select.appendChild(option);
+            }
+        }
+    }
+}
+
+// EVENTO PARA NO REPETIR MOSTRAR CATEGORIAS
+function cargaMarSelect(evento) {
+    verSelectMarca();
+    /* Si el atributo "data-cargado" vale "si" evitamos la descarga */
+    if (evento.target.dataset.cargado != "si") {
+        // console.log("Cargando categorías");
+        verSelectMarca();
+
+       evento.target.dataset.cargado = "si";
+    }
+}
+
+
+// VER MARCA EN SELECTES PRODUCTOS
+function verSelectMarca() {
+    var select = document.getElementById("selectMarca");
+    const http = new XMLHttpRequest();
+    const url = '../../controlador/consultas/verMarca.php';
+
+    http.open('POST', url, true); 
+    http.send();
+
+    http.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            var respuesta = JSON.parse(http.responseText);
+            
+            selectMarca.replaceChildren();
+
+            var option1 = document.createElement("option");
+            // option1.setAttribute("selected");
+            let valor1 = document.createTextNode("Escoge una marca");
+            option1.appendChild(valor1);
+            select.appendChild(option1);
+
+            for(var i = 0; i < respuesta.length; i++) {
+
+                var option = document.createElement("option");
+                option.setAttribute("value", respuesta[i].IdMarca);
+
+                let valor = document.createTextNode(respuesta[i].NomMarca);
+                option.appendChild(valor);
+                select.appendChild(option);
+            }
+        }
+    }
+}
 
 // AGREGAR PRODUCTO
 var formAgregarProductos = document.getElementById('formAgregarProductos');
@@ -41,9 +139,13 @@ formAgregarProductos.onsubmit = a => {
             var mensaje = document.getElementById("mensaje4");
             var respuesta = JSON.parse(http.responseText);
         
-            if (respuesta.estado == "4") {
+            if (respuesta.estado == "5") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "";
+                mensaje.innerHTML = "El tipo de imagen es incorrecto, agregue una imagen de tipo jpg, png, jpeg";
+
+            } else if (respuesta.estado == "4") {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "Hubo un error al guardar el producto vuelva a intentarlo";
 
             } else if (respuesta.estado == "3") {
                 mensaje.style.display = "block";
@@ -51,7 +153,7 @@ formAgregarProductos.onsubmit = a => {
 
             } else if (respuesta.estado == "2") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "";
+                mensaje.innerHTML = "No se permiten caracteres especiales, solo se permiten letras y números, escriba bien sus datos";
 
             } else if (respuesta.estado == "1") {
                 Swal.fire({
@@ -61,10 +163,13 @@ formAgregarProductos.onsubmit = a => {
                     showConfirmButton: false,
                     timer: 2000,
                 });
+            } else {
+                console.log(respuesta.estado);
             }
         }
     }
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 btncat.addEventListener("click", function(evento) {
@@ -95,8 +200,8 @@ function verCategorias() {
     http.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             var respuesta = JSON.parse(http.responseText);
-            
             listaCategoria.replaceChildren();
+            console.log(respuesta);
 
             for(var i = 0; i < respuesta.length; i++) {
                 var li = document.createElement("li");
@@ -133,6 +238,7 @@ formAgregarCategoria.onsubmit = evento => {
                 mensaje.innerHTML = "Falló la operación al guardar la categoría, vuelva a intentarlo";
 
             } else if (respuesta.estado == "1") {
+                mensaje.style.display = "none";
                 Swal.fire({
                     position: "top-center",
                     icon: "success",
@@ -141,6 +247,7 @@ formAgregarCategoria.onsubmit = evento => {
                     timer: 2000,
                 });
                 cargarCat(evento);
+                verSelectCategorias();
             }
         }
     }
@@ -214,6 +321,7 @@ formAgregarMarca.onsubmit = evento => {
                 mensaje.innerHTML = "Falló la operación al guardar la marca, vuelva a intentarlo";
 
             } else if (respuesta.estado == "1") {
+                mensaje.style.display = "none";
                 Swal.fire({
                     position: "top-center",
                     icon: "success",

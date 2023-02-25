@@ -77,7 +77,7 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2">
-                <button type="button" class="btn btn-info fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddProductos">Producto</button>
+                <button type="button" id="btnProd" class="btn btn-info fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddProductos">Producto</button>
             </div>
             <div class="col col-lg-2">
                 <button type="button" id="btncat" class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#staticAddCategoria">Categoría</button>
@@ -192,19 +192,13 @@
                                         
                                         <label for="selectCategoria" class="form-label">Categoría</label>
                                         <select class="form-select" name="txtCategoria" id="selectCategoria" aria-label="Default select example" required>
-                                            <option selected>Categorías</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option selected>Escoge una categoría</option>
                                         </select>
                                     </div>
                                     <div class="col-6">
                                         <label for="selectMarca" class="form-label">Marca</label>
                                         <select class="form-select" name="txtMarca" id="selectMarca" aria-label="Default select example" required>
-                                            <option selected>Marcas</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option selected>Escoge una marca</option>
                                         </select>
                                     </div>
                                 </div>
@@ -311,7 +305,7 @@
                                 <input type="text" required class="form-control" name="txtMarca" id="inputMarca" placeholder="Introdusca la marca">
                             </div>
                         </div>
-                        <div class="modal-footer my-4">
+                        <div class="modal-footer mt-4">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" id="addMarca" class="btn btn-primary">Guardar</button>
                         </div>

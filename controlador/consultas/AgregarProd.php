@@ -2,12 +2,6 @@
     include_once("../../controlador/consultas/conexion.php");
     session_start();
 
-    // 1- success
-    // 2- datos vacios
-    // 3- imagen vacia
-    // 4- hubo un error al guardar
-    // 5- tipo de imagen
-
     $imagenName = $_FILES['file-input'];    // DEVUELVE UNA CADENA DE LOS ATRIBUTOS DE LA IMAGEN
 	$imagenTmp = $_FILES['file-input']['tmp_name'];     // OBTENGO EL NOMBRE TEMPORAL DE LA IMAGEN
 	$nomEncript = md5($_FILES['file-input']['tmp_name']);   // ENCRIPTO CON MD5 EL NOMBRE TEMPORAL DE LA IMAGEN
@@ -18,7 +12,9 @@
     $txtPrecio = $_POST['txtPrecio'];
     $txtPorcion = $_POST['txtPorcion'];
     $txtDescripcion = $_POST['txtDescripcion'];
-    if(!empty($_POST['txtOferta'])) {
+    if(empty($_POST['txtOferta'])) {
+        $txtOferta = null;
+    } else {
         $txtOferta = $_POST['txtOferta'];
     }
 
@@ -26,36 +22,61 @@
 	$jpeg = ".jpeg";
 	$jpg = ".jpg";
     $respuesta = array();
-    $clave = MD5($txtProducto."+".$txtPrecio."+".$txtPorcion);
+    $pregMatchText = "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i";
+    $pregMatchNum = "/^[[:digit:]]+$/";
+    // $clave = MD5($txtProducto."+".$txtPrecio."+".$txtPorcion);
 
-    if($_FILES['file-input']['name'] == null) {
+    
+    if(!preg_match($pregMatchText, $txtProducto) || 
+        !preg_match($pregMatchText, $txtDescripcion) || 
+        !preg_match($pregMatchNum, $txtPrecio) ||
+        !preg_match($pregMatchNum, $txtPorcion)) {
+        $respuesta['estado'] = "2";
+
+    } else if($_FILES['file-input']['name'] == null) {
         $respuesta['estado'] = "3";
+
     } else {
         if ($imagenName['type'] === "image/png" || $imagenName['type'] === "image/PNG") {
+            $rutaDefinitiva = "/galeria/productos/".$nomEncript.$png;
+            $rutaDestino = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$png;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
 
-            if(agregarProd($cn, $txtProducto, $clave, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, rutaDestinoImagen($png, $nomEncript)) == 1) {
-                copiarRutaIamagen($png, rutaDestinoServer($png, $nomEncript));
+            if(agregarProd($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitiva) == 1) {
+                
+                copy($_FILES["file-input"]["tmp_name"], $rutaDestino); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINO
+                move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestino.$png);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
+        
                 $respuesta['estado'] = "1";
             } else {
                 $respuesta['estado'] = "4";
             }
             
         } else if($imagenName['type'] === "image/jpg" || $imagenName['type'] === "image/JPG") {
-            
-            if(agregarProd($cn, $txtProducto, $clave, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, rutaDestinoImagen($jpg, $nomEncript)) == 1) {
-                copiarRutaIamagen($jpg, rutaDestinoServer($jpg, $nomEncript));
+            $rutaDefinitiva = "/galeria/productos/".$nomEncript.$jpg;
+            $rutaDestino = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$jpg;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
+
+            if(agregarProd($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitiva) == 1) {
+                
+                copy($_FILES["file-input"]["tmp_name"], $rutaDestino); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINO
+                move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestino.$jpg);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
+        
                 $respuesta['estado'] = "1";
             } else {
                 $respuesta['estado'] = "4";
             }
 
         } else if($imagenName['type'] === "image/jpeg" || $imagenName['type'] === "image/JPEG") {
-            
-            if(agregarProd($cn, $txtProducto, $clave, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, rutaDestinoImagen($jpeg, $nomEncript)) == 1) {
-                copiarRutaIamagen($jpeg, rutaDestinoServer($jpeg, $nomEncript));
+            $rutaDefinitiva = "/galeria/productos/".$nomEncript.$jpeg;
+            $rutaDestino = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$jpeg;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
+
+            if(agregarProd($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitiva) == 1) {
+                
+                copy($_FILES["file-input"]["tmp_name"], $rutaDestino); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINO
+                move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestino.$jpeg);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
+        
                 $respuesta['estado'] = "1";
             } else {
-                $respuesta['estado'] = "4";
+                $respuesta['estado'] = "error aqui";
             }
 
         } else {
@@ -63,36 +84,44 @@
         }
     }
 
-    function agregarProd($cn, $txtProducto, $clave, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, $rutaDefinitiva) {
-        $queryAgregarProd = "INSERT INTO productos(IdMarca,TokenProd,NomProducto,Porcion,PrecioOriginal,PrecioOferta,Descripcion,Imagen) VALUES
-        ('$txtMarca','$clave','$txtProducto','$txtPorcion','$txtPrecio','$txtOferta','$txtDescripcion','$rutaDefinitiva')";
-        
-        $queryAgregarCat = "INSERT INTO categoria()";
+    function agregarProd($cn, $txtProducto, $nomEncript, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, $rutaDefinitiva) {
 
+        $queryAgregarProd = "INSERT INTO productos (IdMarca,TokenProd,NomProducto,Porcion,PrecioOriginal,PrecioOferta,Descripcion,Imagen) VALUES ('$txtMarca','$nomEncript','$txtProducto','$txtPorcion','$txtPrecio','$txtOferta','$txtDescripcion','$rutaDefinitiva')";
+    
         if($respAdd = $cn->query($queryAgregarProd)) {
-            return 1;
+            // $queryBuscarIdProd = "SELECT * FROM productos WHERE TokenProd='$nomEncript'";
+            // if($respBusquedaId = $cn->query($queryBuscarIdProd)) {
+            //     if($busquedaId = mysqli_fetch_array($respBusquedaId)) {
+            //         $id = $busquedaId['IdProducto'];
+            //         $queryAgregarCat = "INSERT INTO relacionprodcat(IdProducto,IdCategoria) VALUES('$Id','$txtCategoria')";
+            //         $cn->query($queryAgregarCat);
+                    return 1;
+            //     }
+            // } else {
+            //     return 0;
+            // }
         } else {
             return 0;
         }
     }
 
-    // RUTA QUE SE ALMACENARA EN LA BASE DE DATOS
-    function rutaDestinoImagen($tipo, $nomEncript) {
-        $rutaDefinitiva = "/galeria/productos/".$nomEncript.$tipo;
-        return $rutaDefinitiva;
-    }
+    // // RUTA QUE SE ALMACENARA EN LA BASE DE DATOS
+    // $rutaDestinoImagen = function($tipo, $nomEncript) {
+    //     $rutaDefinitiva = "/galeria/productos/".$nomEncript.$tipo;
+    //     return $rutaDefinitiva;
+    // }
 
-    // OBTENER LA RUTA A DONDE SE COPIARA LA IMAGEN
-    function rutaDestinoServer($tipo, $nomEncript) {
-        $rutaDestino = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$tipo;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
-        return $rutaDestino;
-    }
+    // // OBTENER LA RUTA A DONDE SE COPIARA LA IMAGEN
+    // $rutaDestinoServer = function($tipo, $nomEncript) {
+    //     $rutaDestino = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$tipo;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
+    //     return $rutaDestino;
+    // }
 
-    // COPIAR LA IMAGEN AL DIRECTORTIO ESPECIFICADO
-    function copiarRutaIamagen($tipo, $rutaDestino) {
-        copy($_FILES["file-input"]["tmp_name"], $rutaDestino); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINO
-        move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestino.$tipo);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
-    }
+    // // COPIAR LA IMAGEN AL DIRECTORTIO ESPECIFICADO
+    // $copiarRutaIamagen = function($tipo, $rutaDestino) {
+    //     copy($_FILES["file-input"]["tmp_name"], $rutaDestino); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINO
+    //     move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestino.$tipo);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
+    // }
 
     // CONVIERTE E IMPRIME EL ARRAY EN UN OBJETO JSON
     header('Content-Type: application/json');
