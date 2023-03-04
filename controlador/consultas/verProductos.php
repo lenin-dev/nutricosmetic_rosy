@@ -4,11 +4,8 @@
     $respuesta = array();
 
     $querySelect = "SELECT IdMarca, NomProducto, Porcion, PrecioOriginal, PrecioOferta FROM productos";
-    // $querySelectNum = "SELECT count(*) FROM productos";
 
     if($result = $cn->query($querySelect)) {
-        // $resultCount = $cn->query($querySelectNum);
-        // $respuesta['count'] = $resultCount->num_rows;
 
         for($i = 0; $i<$result->num_rows;$i++) {
             $respuesta[$i] = $result->fetch_assoc();
