@@ -45,7 +45,6 @@ function cargaCatSelect(evento) {
 // VER CATEGORIAS EN SELECTES PRODUCTOS
 verSelectCategorias();
 function verSelectCategorias() {
-    var select = document.getElementById("selectCategoria");
     const http = new XMLHttpRequest();
     const url = '../../controlador/consultas/verCategorias.php';
 
@@ -55,6 +54,7 @@ function verSelectCategorias() {
     http.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             var respuesta = JSON.parse(http.responseText);
+            var select = document.getElementById("selectCategoria");
             
             selectCategoria.replaceChildren();
             var option1 = document.createElement("option");
@@ -334,4 +334,60 @@ formAgregarMarca.onsubmit = evento => {
         }
     }
 };
-////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// VER PRODUCTOS
+
+window.addEventListener("load", function(){
+    const http = new XMLHttpRequest();
+    var url = "../../controlador/consultas/verProductos.php";
+
+    http.open("POST", url, true);
+    http.send();
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+
+            var tbody = document.getElementById("tbody");
+            const listaObjetos = ["IdMarca","NomProducto","Porcion","PrecioOriginal","PrecioOferta"];
+
+            var respuesta = JSON.parse(http.responseText);
+            console.log(respuesta);
+
+            if(respuesta.estado == "2") { 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error..',
+                    text: 'Hubo un error al cargar los productos, vuelva a recargar la página.'
+                })
+            } else {
+
+                for(var j = 0; j < respuesta.length; j++) {
+
+                    var tr = document.createElement("tr");
+                    var th = document.createElement("th");
+
+                    for(var i = 0; i < listaObjetos.length; i++) {
+
+                        if(i == 0) {
+                            th.setAttribute("scope", "row");
+                            var textValor2 = document.createTextNode(j+1);
+                            th.appendChild(textValor2);
+                            tr.appendChild(th);
+                        }
+                        
+                        var td = document.createElement("td");
+                        var textValor = document.createTextNode(respuesta[j][listaObjetos[i]]);
+                        // console.log(respuesta[j][listaObjetos[i]]);
+
+                        td.appendChild(textValor);
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                }
+
+            }
+        }
+    }
+})
