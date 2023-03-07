@@ -339,7 +339,11 @@ formAgregarMarca.onsubmit = evento => {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // VER PRODUCTOS
 
-window.addEventListener("load", function(){
+window.addEventListener("load", function() {
+    cargarTabla();
+})
+
+function cargarTabla(){
     const http = new XMLHttpRequest();
     var url = "../../controlador/consultas/verProductos.php";
 
@@ -350,7 +354,7 @@ window.addEventListener("load", function(){
         if (http.readyState == 4 && http.status == 200) {
 
             var tbody = document.getElementById("tbody");
-            const listaObjetos = ["IdMarca","NomProducto","Porcion","PrecioOriginal","PrecioOferta"];
+            const listaObjetos = ["NomMarca","NomCategoria","NomProducto","Porcion","PrecioOriginal","PrecioOferta"];
 
             var respuesta = JSON.parse(http.responseText);
             console.log(respuesta);
@@ -379,15 +383,43 @@ window.addEventListener("load", function(){
                         
                         var td = document.createElement("td");
                         var textValor = document.createTextNode(respuesta[j][listaObjetos[i]]);
-                        // console.log(respuesta[j][listaObjetos[i]]);
 
                         td.appendChild(textValor);
                         tr.appendChild(td);
+
                     }
+
+                    var td2 = document.createElement("td");
+                    var td3 = document.createElement("td");
+                    
+                    // EDITAR
+                    var a = document.createElement("a");
+                    a.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
+                    var img = document.createElement("img");
+                    img.setAttribute("src", "../../galeria/iconos/editar.png");
+                    img.setAttribute("class", "mt-2");
+                    img.setAttribute("width", "30");
+                    img.setAttribute("height", "30");
+                    a.appendChild(img);
+
+                    // BORRAR
+                    var a2 = document.createElement("a");
+                    a2.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
+                    var img2 = document.createElement("img");
+                    img2.setAttribute("src", "../../galeria/iconos/eliminar.png");
+                    img2.setAttribute("class", "mt-2 ms-2");
+                    img2.setAttribute("width", "30");
+                    img2.setAttribute("height", "30");
+                    a2.appendChild(img2);
+
+                    td2.appendChild(a);
+                    td3.appendChild(a2);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
                     tbody.appendChild(tr);
                 }
 
             }
         }
     }
-})
+}

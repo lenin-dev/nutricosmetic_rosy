@@ -3,7 +3,9 @@
     include_once("../../controlador/consultas/conexion.php");
     $respuesta = array();
 
-    $querySelect = "SELECT IdMarca, NomProducto, Porcion, PrecioOriginal, PrecioOferta FROM productos";
+    $querySelect = "SELECT pr.TokenProd, c.NomCategoria, m.NomMarca, pr.NomProducto, pr.Porcion, pr.PrecioOriginal, pr.PrecioOferta 
+    FROM productos pr, marca m, relacionprodcat rel, categoria c 
+    WHERE m.IdMarca = pr.IdMarca AND rel.IdProducto = pr.IdProducto AND rel.IdCategoria = c.IdCategoria";
 
     if($result = $cn->query($querySelect)) {
 
