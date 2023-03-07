@@ -217,6 +217,11 @@
 
   /* /////////////////////////////////////////////////////////////////// */
 
+  .btn-sin-bordes {
+    border-color: #ffffff00;
+    background-color: #ffffff00;
+  }
+
 
   .mensaje3 {
     display: none;

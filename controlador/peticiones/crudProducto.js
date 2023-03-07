@@ -393,18 +393,23 @@ function cargarTabla(){
                     var td3 = document.createElement("td");
                     
                     // EDITAR
-                    var a = document.createElement("a");
-                    a.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
+                    var a = document.createElement("button");
                     var img = document.createElement("img");
+                    a.setAttribute("type", "button");
+                    a.setAttribute("value", respuesta[j].TokenProd);
+                    a.setAttribute("class", "btn-sin-bordes");
                     img.setAttribute("src", "../../galeria/iconos/editar.png");
                     img.setAttribute("width", "30");
                     img.setAttribute("height", "30");
                     a.appendChild(img);
 
                     // BORRAR
-                    var a2 = document.createElement("a");
-                    a2.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
+                    var a2 = document.createElement("button");
                     var img2 = document.createElement("img");
+                    a2.setAttribute("type", "button");
+                    a2.setAttribute("value", respuesta[j].TokenProd);
+                    a2.setAttribute("class", "btn-sin-bordes");
+                    a2.setAttribute("onclick", "eliminarProducto(value)");
                     img2.setAttribute("src", "../../galeria/iconos/eliminar.png");
                     img2.setAttribute("width", "30");
                     img2.setAttribute("height", "30");
@@ -420,4 +425,42 @@ function cargarTabla(){
             }
         }
     }
+}
+
+function eliminarProducto(TokenProd) {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: true
+    })
+      
+    swalWithBootstrapButtons.fire({
+        title: 'Eliminar',
+        text: "¿Está seguro que desea eliminar este producto?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar ',
+        cancelButtonText: 'No, cancelar ',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Eliminado',
+            'Se ha eliminado correctamente.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No se ha eliminado.',
+            'error'
+          )
+        }
+    })
 }
