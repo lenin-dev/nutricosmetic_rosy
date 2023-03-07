@@ -397,7 +397,6 @@ function cargarTabla(){
                     a.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
                     var img = document.createElement("img");
                     img.setAttribute("src", "../../galeria/iconos/editar.png");
-                    img.setAttribute("class", "mt-2");
                     img.setAttribute("width", "30");
                     img.setAttribute("height", "30");
                     a.appendChild(img);
@@ -407,7 +406,6 @@ function cargarTabla(){
                     a2.setAttribute("href", "../../index.html?producto="+respuesta[j].TokenProd);
                     var img2 = document.createElement("img");
                     img2.setAttribute("src", "../../galeria/iconos/eliminar.png");
-                    img2.setAttribute("class", "mt-2 ms-2");
                     img2.setAttribute("width", "30");
                     img2.setAttribute("height", "30");
                     a2.appendChild(img2);
