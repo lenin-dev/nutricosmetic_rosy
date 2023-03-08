@@ -156,6 +156,15 @@ formAgregarProductos.onsubmit = i => {
                 mensaje.innerHTML = "No se permiten caracteres especiales, solo se permiten letras y números, escriba bien sus datos";
 
             } else if (respuesta.estado == "1") {
+
+                document.getElementById('imagenUsuario').src = "../../galeria/iconos/agregar.png";
+                document.getElementById('inputNombreProducto').value = "";
+                document.getElementById('inputPrecio').value = "";
+                document.getElementById('inputProcion').value = "";
+                document.getElementById('inlineFormCheck').value = "";
+                document.getElementById('inputOferta').value = "";
+                document.getElementById('textTareaDescripcion').value = "";
+
                 Swal.fire({
                     position: "top-center",
                     icon: "success",
@@ -343,6 +352,10 @@ window.addEventListener("load", function() {
     cargarTabla();
 })
 
+document.getElementById('cerrarModal').addEventListener("click", function() {
+    cargarTabla();
+})
+
 function cargarTabla(){
     const http = new XMLHttpRequest();
     var url = "../../controlador/consultas/verProductos.php";
@@ -367,6 +380,8 @@ function cargarTabla(){
                 })
             } else {
 
+                tbody.replaceChildren();
+                
                 for(var j = 0; j < respuesta.length; j++) {
 
                     var tr = document.createElement("tr");
@@ -445,13 +460,18 @@ function eliminarProducto(TokenProd) {
         confirmButtonText: 'Si, eliminar ',
         cancelButtonText: 'No, cancelar ',
         reverseButtons: true
+
     }).then((result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire(
-            'Eliminado',
-            'Se ha eliminado correctamente.',
-            'success'
-          )
+
+            eliminarMethoPost(TokenProd);
+
+            swalWithBootstrapButtons.fire(
+                'Eliminado',
+                'Se ha eliminado correctamente.',
+                'success'
+            )
+            
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -463,4 +483,31 @@ function eliminarProducto(TokenProd) {
           )
         }
     })
+}
+
+function eliminarMethoPost(TokenProd) {
+    const xml = new XMLHttpRequest();
+    const url = '../../controlador/consultas/EliminarProducto.php';
+    var parametros = 'clave='+TokenProd;
+
+    xml.open('POST', url, true);
+    xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xml.send(parametros);
+
+    xml.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+
+            var respuesta = JSON.parse(this.responseText);
+
+            if(respuesta.estado == "1") {
+                cargarTabla();
+            } else if(respuesta.estado == "2") {
+                return 2;
+
+            } else {
+                return 3;
+            }
+
+        }
+    }
 }
