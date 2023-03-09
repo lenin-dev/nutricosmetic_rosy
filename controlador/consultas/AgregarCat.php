@@ -4,14 +4,19 @@
 
     $txtCategoria = strtolower($_POST['txtCategoria']);
     $respuesta = array();
+    $pregMatchText = "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i";     //EXPRECIONES REGULARES preg_match
 
-    if(buscarRepetido($txtCategoria, $cn) == 1) {
-        $respuesta['estado'] = "3";
+    if(!preg_match($pregMatchText, $txtCategoria) || $txtCategoria == " ") {
+        $respuesta['estado'] = "4";
     } else {
-        if(addCat($txtCategoria, $cn) == 1) {
-            $respuesta['estado'] = "1";
+        if(buscarRepetido($txtCategoria, $cn) == 1) {
+            $respuesta['estado'] = "3";
         } else {
-            $respuesta['estado'] = "2";
+            if(addCat($txtCategoria, $cn) == 1) {
+                $respuesta['estado'] = "1";
+            } else {
+                $respuesta['estado'] = "2";
+            }
         }
     }
 

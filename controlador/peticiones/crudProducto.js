@@ -257,6 +257,9 @@ formAgregarCategoria.onsubmit = evento => {
                 });
                 cargarCat(evento);
                 verSelectCategorias();
+            } else {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "No se permiten caracteres especiales.";
             }
         }
     }
@@ -339,6 +342,9 @@ formAgregarMarca.onsubmit = evento => {
                     timer: 2000,
                 });
                 cargaMar(evento);
+            } else {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "No se permiten caracteres especiales.";
             }
         }
     }
@@ -498,16 +504,30 @@ function eliminarMethoPost(TokenProd) {
         if(this.readyState == 4 && this.status == 200) {
 
             var respuesta = JSON.parse(this.responseText);
+            var mensajeDiv = document.getElementById('mensaje-error-prod');
 
             if(respuesta.estado == "1") {
                 cargarTabla();
+
             } else if(respuesta.estado == "2") {
-                return 2;
+                mensajeDiv.style.display = 'block';
+                mensajeDiv.innerHTML = "No se encontro el valor del producto, vuelva a intentarlo más tarde.";
+                setTimeout(mostrarMensajeProd, 10000);
 
             } else {
-                return 3;
+                mensajeDiv.style.display = 'block';
+                mensajeDiv.innerHTML = "No se ejecuto la acción eliminar producto, vuelvalo a intentar más tarde.";
+                setTimeout(mostrarMensajeProd, 10000);
             }
 
         }
+    }
+}
+
+function mostrarMensajeProd() {
+    var mensaje = document.getElementById('mensaje-error-prod');
+
+    if(mensaje.style.display != 'none') {
+        mensaje.style.display = 'none';
     }
 }

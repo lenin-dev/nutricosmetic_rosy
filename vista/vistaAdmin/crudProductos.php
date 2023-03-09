@@ -88,6 +88,7 @@
         </div>
         <div class="row">
             <div class="col-12">
+                <div class="alert alert-danger mt-4" id="mensaje-error-prod" role="alert"></div>
                 <p class="fw-bold fs-3 mt-4">PRODUCTOS</p>
             </div>
         </div>

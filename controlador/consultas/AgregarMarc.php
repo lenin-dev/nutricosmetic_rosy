@@ -4,16 +4,23 @@
 
     $txtMarca = strtolower($_POST['txtMarca']);
     $respuesta = array();
+    $pregMatchText = "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i";     //EXPRECIONES REGULARES preg_match
 
-    if(buscarRepetido($txtMarca, $cn) == 1) {
-        $respuesta['estado'] = "3";
+    if(!preg_match($pregMatchText, $txtMarca) || $txtMarca == " ") {
+        $respuesta['estado'] = "4";
     } else {
-        if(addMarc($txtMarca, $cn) == 1) {
-            $respuesta['estado'] = "1";
+        if(buscarRepetido($txtMarca, $cn) == 1) {
+            $respuesta['estado'] = "3";
         } else {
-            $respuesta['estado'] = "2";
+            if(addMarc($txtMarca, $cn) == 1) {
+                $respuesta['estado'] = "1";
+            } else {
+                $respuesta['estado'] = "2";
+            }
         }
     }
+
+    
 
     function addMarc($txtMarca, $cn) {
         $queryAddCat = "INSERT INTO marca(NomMarca) VALUES ('$txtMarca')";
