@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>CRUD Productos</title>
 
     <link rel="stylesheet" href="../../estilos/estiloPrin.css">
@@ -164,13 +165,13 @@
                                         
                                         <label for="selectCategoria" class="form-label">Categoría</label>
                                         <select class="form-select" name="txtCategoria" id="selectCategoria" aria-label="Default select example" required>
-                                            <option selected>Escoge una categoría</option>
+                                            <option value="0" selected>Escoge una categoría</option>
                                         </select>
                                     </div>
                                     <div class="col-6">
                                         <label for="selectMarca" class="form-label">Marca</label>
                                         <select class="form-select" name="txtMarca" id="selectMarca" aria-label="Default select example" required>
-                                            <option selected>Escoge una marca</option>
+                                            <option value="0" selected>Escoge una marca</option>
                                         </select>
                                     </div>
                                 </div>

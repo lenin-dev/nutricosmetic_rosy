@@ -23,6 +23,18 @@ const mostrar = (event) => {
     mostrarIamgen.readAsDataURL(event.target.files[0]);
 }
 
+function limpiarImputs() {
+    document.getElementById('imagenUsuario').src = "../../galeria/iconos/agregar.png";
+    document.getElementById('inputNombreProducto').value = "";
+    document.getElementById('selectCategoria').value = "0";
+    document.getElementById('selectMarca').value = "0";
+    document.getElementById('inputPrecio').value = "";
+    document.getElementById('inputProcion').value = "";
+    document.getElementById('inlineFormCheck').value = "";
+    document.getElementById('inputOferta').value = "";
+    document.getElementById('textTareaDescripcion').value = "";
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -157,13 +169,7 @@ formAgregarProductos.onsubmit = i => {
 
             } else if (respuesta.estado == "1") {
 
-                document.getElementById('imagenUsuario').src = "../../galeria/iconos/agregar.png";
-                document.getElementById('inputNombreProducto').value = "";
-                document.getElementById('inputPrecio').value = "";
-                document.getElementById('inputProcion').value = "";
-                document.getElementById('inlineFormCheck').value = "";
-                document.getElementById('inputOferta').value = "";
-                document.getElementById('textTareaDescripcion').value = "";
+                limpiarImputs();
 
                 Swal.fire({
                     position: "top-center",
@@ -178,6 +184,7 @@ formAgregarProductos.onsubmit = i => {
         }
     }
 };
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -360,6 +367,7 @@ window.addEventListener("load", function() {
 
 document.getElementById('cerrarModal').addEventListener("click", function() {
     cargarTabla();
+    limpiarImputs();
 })
 
 function cargarTabla(){
@@ -376,7 +384,7 @@ function cargarTabla(){
             const listaObjetos = ["NomMarca","NomCategoria","NomProducto","Porcion","PrecioOriginal","PrecioOferta"];
 
             var respuesta = JSON.parse(http.responseText);
-            console.log(respuesta);
+            // console.log(respuesta);
 
             if(respuesta.estado == "2") { 
                 Swal.fire({
@@ -419,6 +427,9 @@ function cargarTabla(){
                     a.setAttribute("type", "button");
                     a.setAttribute("value", respuesta[j].TokenProd);
                     a.setAttribute("class", "btn-sin-bordes");
+                    a.setAttribute("onclick", "MostrarEditarProd(value)");
+                    a.setAttribute("data-bs-toggle", "modal");
+                    a.setAttribute("data-bs-target", "#staticAddProductos");
                     img.setAttribute("src", "../../galeria/iconos/editar.png");
                     img.setAttribute("width", "30");
                     img.setAttribute("height", "30");
@@ -529,5 +540,42 @@ function mostrarMensajeProd() {
 
     if(mensaje.style.display != 'none') {
         mensaje.style.display = 'none';
+    }
+}
+
+// MOSTRAR DATOS DEL PRODUCTO PARA ACTUALIZAR
+function MostrarEditarProd(clave) {
+    const xml = new XMLHttpRequest();
+    const url = "../../controlador/consultas/verProductos.php";
+    var param = 'clave='+clave;
+
+    xml.open("POST", url, true);
+    xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xml.send(param);
+
+    xml.onreadystatechange = function() {
+        if (xml.readyState == 4 && xml.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            console.log(respuesta);
+
+            var img = document.getElementById('imagenUsuario');
+            var nombre = document.getElementById('inputNombreProducto');
+            var cat = document.getElementById('selectCategoria');
+            var mar = document.getElementById('selectMarca');
+            var precio = document.getElementById('inputPrecio');
+            var porsion = document.getElementById('inputProcion');
+            var oferta = document.getElementById('inputOferta');
+            var descripcion = document.getElementById('textTareaDescripcion');
+
+            img.src = "../.."+respuesta[0].Imagen;
+            nombre.value = respuesta[0].NomProducto;
+            cat.value = respuesta[0].IdCategoria;
+            mar.value = respuesta[0].IdMarca;
+            precio.value = respuesta[0].PrecioOriginal;
+            porsion.value = respuesta[0].Porcion;
+            oferta.value = respuesta[0].PrecioOferta;
+            descripcion.value = respuesta[0].Descripcion;
+
+        }
     }
 }

@@ -28,8 +28,9 @@
 
             if($busquedaId = mysqli_fetch_array($respQuerySearch)) {
                 $idProd = $busquedaId['IdProducto'];
+                $imgRuta = $busquedaId['Imagen'];
 
-                if(eliminarProdCat($idProd, $cn) == 1) {
+                if(eliminarProdCat($idProd, $imgRuta, $cn) == 1) {
                     return 1;
 
                 } else {
@@ -44,12 +45,14 @@
         }
     }
 
-    function eliminarProdCat($idProd, $cn) {
+    function eliminarProdCat($idProd, $imgRuta, $cn) {
         $queryEliminarRel = "DELETE FROM relacionprodcat WHERE IdProducto='$idProd'";
         $queryEliminarProd = "DELETE FROM productos WHERE IdProducto='$idProd'";
 
         if($cn->query($queryEliminarRel)) {
             if ($cn->query($queryEliminarProd)) {
+                $rutaImg = trim($imgRuta);
+                unlink($_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy".$rutaImg);   // RUTA PARA ELIMINAR IMAGEN DEL DIRECTORTIO RAIZ
                 return 1;
             } else {
                 return 0;
