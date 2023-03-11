@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,9 +94,9 @@
         </div>
         <div class="row row-cols-1 row-cols-md-3 justify-content-end">
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                <form class="d-flex" id="formBuscar">
+                    <input class="form-control me-2" type="text" name="buscarProd" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" hidden>Buscar</button>
                 </form>
             </div>
         </div>
@@ -107,9 +106,9 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Producto</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Categoría</th>
-                            <th scope="col">Producto</th>
                             <th scope="col">Porción</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Oferta</th>
@@ -134,7 +133,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticAddProductos">Agregar productos</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" id="cerraModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="formAgregarProductos" name="formAgregarProductos" method="post">
@@ -209,7 +208,8 @@
                         </div>
                         <div class="modal-footer mt-3">
                             <button type="button" id="cerrarModal" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btnActualizar" style="display: none;">Actualizar</button>
                         </div>
                     </form>
                 </div>

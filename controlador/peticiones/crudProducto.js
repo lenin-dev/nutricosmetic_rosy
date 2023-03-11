@@ -1,4 +1,5 @@
 'use strict'
+
 var inputOferta = document.getElementById("inputOferta");
 var check = document.getElementById("inlineFormCheck");
 check.addEventListener("change", function() {
@@ -33,12 +34,22 @@ function limpiarImputs() {
     document.getElementById('inlineFormCheck').value = "";
     document.getElementById('inputOferta').value = "";
     document.getElementById('textTareaDescripcion').value = "";
+
+    if(inputOferta.disabled == false) {
+        document.getElementById("inlineFormCheck").checked = false;
+        inputOferta.disabled = true;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 btnProd.addEventListener("click", function(evento) {
+    var btnAdd = document.getElementById("btnGuardar");
+    var btnUp = document.getElementById("btnActualizar");
+    btnAdd.style.display = "block";
+    btnUp.style.display = "none";
+
     cargaMarSelect(evento);
     cargaCatSelect(evento);
 });
@@ -87,7 +98,7 @@ function verSelectCategorias() {
     }
 }
 
-// EVENTO PARA NO REPETIR MOSTRAR CATEGORIAS
+// EVENTO PARA NO REPETIR MOSTRAR MARCA
 function cargaMarSelect(evento) {
     verSelectMarca();
     /* Si el atributo "data-cargado" vale "si" evitamos la descarga */
@@ -101,6 +112,7 @@ function cargaMarSelect(evento) {
 
 
 // VER MARCA EN SELECTES PRODUCTOS
+verSelectMarca();
 function verSelectMarca() {
     var select = document.getElementById("selectMarca");
     const http = new XMLHttpRequest();
@@ -114,7 +126,6 @@ function verSelectMarca() {
             var respuesta = JSON.parse(http.responseText);
             
             selectMarca.replaceChildren();
-
             var option1 = document.createElement("option");
             // option1.setAttribute("selected");
             let valor1 = document.createTextNode("Escoge una marca");
@@ -365,27 +376,34 @@ window.addEventListener("load", function() {
     cargarTabla();
 })
 
+document.getElementById('cerraModalClose').addEventListener("click", function() {
+    cargarTabla();
+    limpiarImputs();
+})
+
 document.getElementById('cerrarModal').addEventListener("click", function() {
     cargarTabla();
     limpiarImputs();
 })
 
+var formBuscar = document.getElementById('formBuscar');
+formBuscar.addEventListener("keyup", cargarTabla);
+
 function cargarTabla(){
+
+    var tbody = document.getElementById("tbody");
+
+    var fm = new FormData(formBuscar);
     const http = new XMLHttpRequest();
     var url = "../../controlador/consultas/verProductos.php";
-
     http.open("POST", url, true);
-    http.send();
-
+    // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send(fm);
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-
-            var tbody = document.getElementById("tbody");
-            const listaObjetos = ["NomMarca","NomCategoria","NomProducto","Porcion","PrecioOriginal","PrecioOferta"];
-
+            const listaObjetos = ["NomProducto","NomMarca","NomCategoria","Porcion","PrecioOriginal","PrecioOferta"];
             var respuesta = JSON.parse(http.responseText);
             // console.log(respuesta);
-
             if(respuesta.estado == "2") { 
                 Swal.fire({
                     icon: 'error',
@@ -393,16 +411,12 @@ function cargarTabla(){
                     text: 'Hubo un error al cargar los productos, vuelva a recargar la página.'
                 })
             } else {
-
                 tbody.replaceChildren();
                 
                 for(var j = 0; j < respuesta.length; j++) {
-
                     var tr = document.createElement("tr");
                     var th = document.createElement("th");
-
                     for(var i = 0; i < listaObjetos.length; i++) {
-
                         if(i == 0) {
                             th.setAttribute("scope", "row");
                             var textValor2 = document.createTextNode(j+1);
@@ -412,12 +426,9 @@ function cargarTabla(){
                         
                         var td = document.createElement("td");
                         var textValor = document.createTextNode(respuesta[j][listaObjetos[i]]);
-
                         td.appendChild(textValor);
                         tr.appendChild(td);
-
                     }
-
                     var td2 = document.createElement("td");
                     var td3 = document.createElement("td");
                     
@@ -434,32 +445,29 @@ function cargarTabla(){
                     img.setAttribute("width", "30");
                     img.setAttribute("height", "30");
                     a.appendChild(img);
-
                     // BORRAR
                     var a2 = document.createElement("button");
                     var img2 = document.createElement("img");
                     a2.setAttribute("type", "button");
                     a2.setAttribute("value", respuesta[j].TokenProd);
                     a2.setAttribute("class", "btn-sin-bordes");
-                    a2.setAttribute("onclick", "eliminarProducto(value)");
+                    a2.setAttribute("onclick", "alertMensajeDelete(value)");
                     img2.setAttribute("src", "../../galeria/iconos/eliminar.png");
                     img2.setAttribute("width", "30");
                     img2.setAttribute("height", "30");
                     a2.appendChild(img2);
-
                     td2.appendChild(a);
                     td3.appendChild(a2);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
                     tbody.appendChild(tr);
                 }
-
             }
         }
     }
 }
 
-function eliminarProducto(TokenProd) {
+function alertMensajeDelete(TokenProd) {
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -545,6 +553,12 @@ function mostrarMensajeProd() {
 
 // MOSTRAR DATOS DEL PRODUCTO PARA ACTUALIZAR
 function MostrarEditarProd(clave) {
+
+    var btnAdd = document.getElementById("btnGuardar");
+    var btnUp = document.getElementById("btnActualizar");
+    btnAdd.style.display = "none";
+    btnUp.style.display = "block";
+
     const xml = new XMLHttpRequest();
     const url = "../../controlador/consultas/verProductos.php";
     var param = 'clave='+clave;
@@ -559,6 +573,8 @@ function MostrarEditarProd(clave) {
             console.log(respuesta);
 
             var img = document.getElementById('imagenUsuario');
+            var imgInput = document.getElementById('file-input');
+
             var nombre = document.getElementById('inputNombreProducto');
             var cat = document.getElementById('selectCategoria');
             var mar = document.getElementById('selectMarca');
@@ -568,6 +584,7 @@ function MostrarEditarProd(clave) {
             var descripcion = document.getElementById('textTareaDescripcion');
 
             img.src = "../.."+respuesta[0].Imagen;
+            // imgInput.FileList[0] = "../.."+respuesta[0].Imagen;
             nombre.value = respuesta[0].NomProducto;
             cat.value = respuesta[0].IdCategoria;
             mar.value = respuesta[0].IdMarca;
@@ -579,3 +596,52 @@ function MostrarEditarProd(clave) {
         }
     }
 }
+
+// ACTUALIZAR PRODUCTOS
+document.getElementById("btnActualizar").addEventListener("click", function() {
+    var fm = new FormData(formAgregarProductos);
+    const http = new XMLHttpRequest();
+  
+    var url = "../../controlador/consultas/EditarProducto.php";
+
+    http.open("POST", url, true);
+    http.send(fm);
+
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            var mensaje = document.getElementById("mensaje4");
+            var respuesta = JSON.parse(http.responseText);
+        
+            if (respuesta.estado == "5") {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "El tipo de imagen es incorrecto, agregue una imagen de tipo jpg, png, jpeg";
+
+            } else if (respuesta.estado == "4") {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "Hubo un error al guardar el producto vuelva a intentarlo";
+
+            } else if (respuesta.estado == "3") {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "Inserte una imagen del producto";
+
+            } else if (respuesta.estado == "2") {
+                mensaje.style.display = "block";
+                mensaje.innerHTML = "No se permiten caracteres especiales, solo se permiten letras y números, escriba bien sus datos";
+
+            } else if (respuesta.estado == "1") {
+
+                limpiarImputs();
+
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Datos Actualizados",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            } else {
+                console.log(respuesta.estado);
+            }
+        }
+    }
+})

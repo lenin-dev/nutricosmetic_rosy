@@ -6,12 +6,12 @@
 	$imagenTmp = $_FILES['file-input']['tmp_name'];     // OBTENGO EL NOMBRE TEMPORAL DE LA IMAGEN
 	$nomEncript = md5($_FILES['file-input']['tmp_name']);   // ENCRIPTO CON MD5 EL NOMBRE TEMPORAL DE LA IMAGEN
 
-    $txtProducto = $_POST['txtProducto'];
-    $txtCategoria = $_POST['txtCategoria'];
-    $txtMarca = $_POST['txtMarca'];
-    $txtPrecio = $_POST['txtPrecio'];
-    $txtPorcion = $_POST['txtPorcion'];
-    $txtDescripcion = $_POST['txtDescripcion'];
+    $txtProducto = trim($_POST['txtProducto']);
+    $txtCategoria = trim($_POST['txtCategoria']);
+    $txtMarca = trim($_POST['txtMarca']);
+    $txtPrecio = trim($_POST['txtPrecio']);
+    $txtPorcion = trim($_POST['txtPorcion']);
+    $txtDescripcion = trim($_POST['txtDescripcion']);
     if(empty($_POST['txtOferta'])) {
         $txtOferta = null;
     } else {

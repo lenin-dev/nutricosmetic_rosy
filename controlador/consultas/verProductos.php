@@ -2,14 +2,22 @@
 
     include_once("../../controlador/consultas/conexion.php");
     $respuesta = array();
+
     if(!empty($_POST['clave'])) {
         $clave = $_POST['clave'];
     }
 
-    if(empty($clave)) {
-        $querySelect = "SELECT pr.TokenProd, c.NomCategoria, m.NomMarca, pr.NomProducto, pr.Porcion, pr.PrecioOriginal, pr.PrecioOferta 
+    $querySelect = "SELECT pr.TokenProd, c.NomCategoria, m.NomMarca, pr.NomProducto, pr.Porcion, pr.PrecioOriginal, pr.PrecioOferta 
         FROM productos pr, marca m, relacionprodcat rel, categoria c 
         WHERE m.IdMarca = pr.IdMarca AND rel.IdProducto = pr.IdProducto AND rel.IdCategoria = c.IdCategoria";
+
+    if(empty($_POST['clave'])) {
+
+        if (!empty($_POST['buscarProd'])) {
+            $txtChar = $cn->real_escape_string($_POST['buscarProd']);   // Solo permite caracteres string
+            $where = " AND pr.NomProducto LIKE '%".$txtChar."%'";       // Concateno
+            $querySelect = $querySelect.$where;
+        }
 
         if($result = $cn->query($querySelect)) {
 
@@ -23,7 +31,7 @@
 
     } else {
         
-        $querySelectSearch = "SELECT pr.TokenProd, c.IdCategoria, m.IdMarca, pr.NomProducto, pr.Porcion, pr.PrecioOriginal, pr.PrecioOferta, pr.Imagen 
+        $querySelectSearch = "SELECT pr.TokenProd, c.IdCategoria, m.IdMarca, pr.NomProducto, pr.Porcion, pr.PrecioOriginal, pr.PrecioOferta, pr.Imagen, pr.Descripcion 
         FROM productos pr, marca m, relacionprodcat rel, categoria c 
         WHERE m.IdMarca = pr.IdMarca AND rel.IdProducto = pr.IdProducto AND rel.IdCategoria = c.IdCategoria AND TokenProd='$clave'";
         
@@ -41,4 +49,4 @@
 
     // CONVIERTE E IMPRIME EL ARRAY EN UN OBJETO JSON
     header('Content-Type: application/json');
-    echo json_encode($respuesta);
+    echo json_encode($respuesta, JSON_UNESCAPED_UNICODE);
