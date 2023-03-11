@@ -26,6 +26,7 @@ const mostrar = (event) => {
 
 function limpiarImputs() {
     document.getElementById('imagenUsuario').src = "../../galeria/iconos/agregar.png";
+    document.getElementById('file-input').value = "";
     document.getElementById('inputNombreProducto').value = "";
     document.getElementById('selectCategoria').value = "0";
     document.getElementById('selectMarca').value = "0";
@@ -165,18 +166,22 @@ formAgregarProductos.onsubmit = i => {
             if (respuesta.estado == "5") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "El tipo de imagen es incorrecto, agregue una imagen de tipo jpg, png, jpeg";
+                setTimeout(mostrarMensajeProdEdit(), 5000);
 
             } else if (respuesta.estado == "4") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "Hubo un error al guardar el producto vuelva a intentarlo";
+                setTimeout(mostrarMensajeProdEdit(), 5000);
 
             } else if (respuesta.estado == "3") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "Inserte una imagen del producto";
+                setTimeout(mostrarMensajeProdEdit(), 5000);
 
             } else if (respuesta.estado == "2") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "No se permiten caracteres especiales, solo se permiten letras y números, escriba bien sus datos";
+                setTimeout(mostrarMensajeProdEdit(), 5000);
 
             } else if (respuesta.estado == "1") {
 
@@ -556,6 +561,8 @@ function MostrarEditarProd(clave) {
 
     var btnAdd = document.getElementById("btnGuardar");
     var btnUp = document.getElementById("btnActualizar");
+    var tituloh1 = document.querySelector("#tituloModal-1");
+    // tituloh1.innerHTML = "Actualizar producto";
     btnAdd.style.display = "none";
     btnUp.style.display = "block";
 
@@ -570,11 +577,10 @@ function MostrarEditarProd(clave) {
     xml.onreadystatechange = function() {
         if (xml.readyState == 4 && xml.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta);
+            // console.log(respuesta);
 
             var img = document.getElementById('imagenUsuario');
-            var imgInput = document.getElementById('file-input');
-
+            var Token = document.getElementById('inputNombreToken');
             var nombre = document.getElementById('inputNombreProducto');
             var cat = document.getElementById('selectCategoria');
             var mar = document.getElementById('selectMarca');
@@ -584,7 +590,7 @@ function MostrarEditarProd(clave) {
             var descripcion = document.getElementById('textTareaDescripcion');
 
             img.src = "../.."+respuesta[0].Imagen;
-            // imgInput.FileList[0] = "../.."+respuesta[0].Imagen;
+            Token.value = respuesta[0].TokenProd;
             nombre.value = respuesta[0].NomProducto;
             cat.value = respuesta[0].IdCategoria;
             mar.value = respuesta[0].IdMarca;
@@ -614,19 +620,23 @@ document.getElementById("btnActualizar").addEventListener("click", function() {
         
             if (respuesta.estado == "5") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "El tipo de imagen es incorrecto, agregue una imagen de tipo jpg, png, jpeg";
+                mensaje.innerHTML = "file vacio";
+                setTimeout(mostrarMensajeProdEdit, 10000);
 
             } else if (respuesta.estado == "4") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "Hubo un error al guardar el producto vuelva a intentarlo";
+                setTimeout(mostrarMensajeProdEdit, 10000);
 
             } else if (respuesta.estado == "3") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "Inserte una imagen del producto";
+                mensaje.innerHTML = "Inserte una imagen de tipo jpg, png o jpeg.";
+                setTimeout(mostrarMensajeProdEdit, 10000);
 
             } else if (respuesta.estado == "2") {
                 mensaje.style.display = "block";
                 mensaje.innerHTML = "No se permiten caracteres especiales, solo se permiten letras y números, escriba bien sus datos";
+                setTimeout(mostrarMensajeProdEdit, 10000);
 
             } else if (respuesta.estado == "1") {
 
@@ -645,3 +655,11 @@ document.getElementById("btnActualizar").addEventListener("click", function() {
         }
     }
 })
+
+function mostrarMensajeProdEdit() {
+    var mensaje = document.getElementById('mensaje4');
+
+    if(mensaje.style.display != 'none') {
+        mensaje.style.display = 'none';
+    }
+}

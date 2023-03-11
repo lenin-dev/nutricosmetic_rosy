@@ -7,6 +7,7 @@
 	$nomEncript = md5($_FILES['file-input']['tmp_name']);   // ENCRIPTO CON MD5 EL NOMBRE TEMPORAL DE LA IMAGEN
 
     $txtProducto = trim($_POST['txtProducto']);
+    $TokenOld = trim($_POST['txtToken']);
     $txtCategoria = trim($_POST['txtCategoria']);
     $txtMarca = trim($_POST['txtMarca']);
     $txtPrecio = trim($_POST['txtPrecio']);
@@ -43,7 +44,7 @@
             $rutaDefinitivaPng = "/galeria/productos/".$nomEncript.$png;
             $rutaDestinoPng = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$png;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
 
-            if(Update($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaPng) == 1) {
+            if(Update($cn, $TokenOld, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaPng) == 1) {
                 
                 copy($_FILES["file-input"]["tmp_name"], $rutaDestinoPng); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINOPng
                 move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestinoPng.$png);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
@@ -57,7 +58,7 @@
             $rutaDefinitivaJpg = "/galeria/productos/".$nomEncript.$jpg;
             $rutaDestinoJpg = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$jpg;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
 
-            if(Update($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaJpg) == 1) {
+            if(Update($cn, $TokenOld, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaJpg) == 1) {
                 
                 copy($_FILES["file-input"]["tmp_name"], $rutaDestinoJpg); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINOJpg
                 move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestinoJpg.$jpg);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
@@ -71,7 +72,7 @@
             $rutaDefinitivaJpeg = "/galeria/productos/".$nomEncript.$jpeg;
             $rutaDestinoJpeg = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$jpeg;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
 
-            if(Update($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaJpeg) == 1) {
+            if(Update($cn, $TokenOld, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta, $rutaDefinitivaJpeg) == 1) {
                 
                 copy($_FILES["file-input"]["tmp_name"], $rutaDestinoJpeg); // COPIO LAS IMAGENES A LA CARPETA DE RUTADESTINOJpeg$rutaDestinoJpeg
                 move_uploaded_file(basename($_FILES["file-input"]["tmp_name"]), $rutaDestinoJpeg.$jpeg);   // MUEVO LA IMAGEN A LA CARPETA DESTINO 
@@ -80,14 +81,24 @@
                 $respuesta['estado'] = "4";
             }
 
+        } else if($imagenName['type'] == null) {
+            // $rutaDefinitivaJpeg = "/galeria/productos/".$nomEncript.$jpeg;
+            // $rutaDestinoJpeg = $_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy/galeria/productos/".$nomEncript.$jpeg;    // OBTENGO LA RUTA DONDE SE ALMACENARAN LAS IMAGENES
+
+            if(UpdateSinImg($cn, $txtProducto, $nomEncript, $txtCategoria, (int)$txtMarca, (int)$txtPrecio, $txtPorcion, $txtDescripcion, (int)$txtOferta) == 1) { 
+                $respuesta['estado'] = "1";
+
+            } else {
+                $respuesta['estado'] = "4";
+            }
+
         } else {
-            $respuesta['estado'] = "5";
+            $respuesta['estado'] = "3";
         }
     }
 
-    function Update($cn, $txtProducto, $nomEncript, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, $rutaDefinitiva) {
-        $queryUpdate = "UPDATE productos SET IdMarca='$txtMarca',TokenProd='$nomEncript',NomProducto='$txtProducto',Porcion='$txtPorcion',PrecioOriginal='$txtPrecio',PrecioOferta='$txtOferta',Descripcion='$txtDescripcion',Imagen='$rutaDefinitiva'
-        WHERE NomProducto='$txtProducto'";
+    function UpdateSinImg($cn, $txtProducto, $nomEncript, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta) {
+        $queryUpdate = "UPDATE productos SET IdMarca='$txtMarca',TokenProd='$nomEncript',NomProducto='$txtProducto',Porcion='$txtPorcion',PrecioOriginal='$txtPrecio',PrecioOferta='$txtOferta',Descripcion='$txtDescripcion' WHERE NomProducto='$txtProducto'";
 
         if($respAdd = $cn->query($queryUpdate)) {
             $queryBuscarIdProd = "SELECT * FROM productos WHERE TokenProd='$nomEncript'";
@@ -101,6 +112,31 @@
             } else {
                 return 0;
             }
+        } else {
+            return 0;
+        }
+    }
+
+    function Update($cn, $TokenOld, $txtProducto, $nomEncript, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta, $rutaDefinitiva) {
+        
+        $queryUpdate = "UPDATE productos SET IdMarca='$txtMarca',TokenProd='$nomEncript',NomProducto='$txtProducto',Porcion='$txtPorcion',PrecioOriginal='$txtPrecio',PrecioOferta='$txtOferta',Descripcion='$txtDescripcion',Imagen='$rutaDefinitiva' WHERE NomProducto='$txtProducto'";
+        $queryBuscarIdProd = "SELECT * FROM productos WHERE TokenProd='$TokenOld'";
+        $respBusquedaId = $cn->query($queryBuscarIdProd);
+            
+        if($busquedaId = mysqli_fetch_array($respBusquedaId)) {
+            $id = $busquedaId['IdProducto'];
+            $rutaImgOld = $busquedaId['Imagen'];
+            unlink($_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy".$rutaImgOld);   // RUTA PARA ELIMINAR IMAGEN DEL DIRECTORTIO RAIZ
+            
+            if($respAdd = $cn->query($queryUpdate)) {
+                $queryAgregarCat = "UPDATE relacionprodcat SET IdCategoria='$txtCategoria' WHERE IdProducto='$id'";
+                $cn->query($queryAgregarCat);
+
+                return 1;
+            } else {
+                return 0;
+            }
+        
         } else {
             return 0;
         }

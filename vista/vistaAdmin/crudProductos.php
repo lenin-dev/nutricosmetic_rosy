@@ -132,7 +132,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticAddProductos">Agregar productos</h1>
+                    <h1 class="modal-title fs-5 tituloModal-1" id="staticAddProductos">Agregar productos</h1>
                     <button type="button" class="btn-close" id="cerraModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -158,6 +158,9 @@
                                 <label for="inputNombreProducto" class="form-label">Nombre producto</label>
                                 <input type="text" class="form-control" name="txtProducto" 
                                 id="inputNombreProducto" placeholder="Nombre producto" required>
+
+                                <input type="text" class="form-control" name="txtToken" 
+                                id="inputNombreToken" hidden>
 
                                 <div class="row row-cols-2 mt-3">
                                     <div class="col-6">
