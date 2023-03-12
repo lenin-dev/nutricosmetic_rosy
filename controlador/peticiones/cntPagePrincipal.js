@@ -1,3 +1,5 @@
+'use strict';
+
 // Acciones de botonses o lincks /////////////////////
 document.getElementById("pageInicio").addEventListener("click", function(){ cargarPageInicio(); });
 
@@ -7,12 +9,26 @@ document.getElementById("resp2").addEventListener("click", function(){ cargaPerf
 
 window.addEventListener("load", function() {
     cargaURL();
+    cargaFooter();
 });
 
 // Cargar desde un inivio //////////////////
-'use strict';
 cargarPageInicio();
 cargarSlider();
+
+function cargaFooter() {
+    const http = new XMLHttpRequest();
+    const url = './vista/complementos/footer.php';
+    http.open('GET', url, true); 
+    http.send();
+
+    http.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            document.getElementById("footer").innerHTML = this.responseText;
+        }
+    }
+}
 
 function cargaURL() {
     const rutaActual = window.location.hash;

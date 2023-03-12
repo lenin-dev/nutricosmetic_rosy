@@ -11,6 +11,7 @@
     $pass2 = $_POST['txtPass2'];
     $tipoUsuario = 2;
     $respuesta = array();
+    $imgR = '/galeria/iconos/usuario.png';
 
     // ENCRIPTACION DE CONTRASEÑAS Y TOKEN DE USUARIO
     $passEncript = MD5($pass1);
@@ -30,7 +31,7 @@
     } else if(empty($nombre) && empty($cel) && empty($email) && empty($pass1) && empty($pass2)) {
         $respuesta['estado'] = "5";
     } else {
-        $queryAdd = "INSERT INTO usuarios(Token,NombreCom,Email,Contrasena,Celular,IdTipoUsuario) VALUES ('$token','$nombre','$email','$passEncript','$cel','$tipoUsuario')";
+        $queryAdd = "INSERT INTO usuarios(Token,NombreCom,Email,Contrasena,Celular,IdTipoUsuario,Imagen) VALUES ('$token','$nombre','$email','$passEncript','$cel','$tipoUsuario','$imgR')";
 
         if(!$queryEjecutable = $cn->query($queryAdd)) {     // EJECUTA CONSULTA Y PREGUNTA CON IF SI SE EJECUTO CORRECTAMENTE
             $respuesta['estado'] = "4";

@@ -34,7 +34,7 @@
                 return 0;
             } else {
                 // FUNCION PARA ACTUALIZAR
-                if(actualizarDatosUsu($cn, $rutaDefinitiva1, $celular, $nombre, $clave, $emailOring) == 1) {   // METODO PARA ACTUALIZAR
+                if(actualizarDatosUsu($cn, $rutaDefinitiva1, $celular, $nombre, $clave, $emailOring) == 0) {   // METODO PARA ACTUALIZAR
                     $respuesta['estado'] = "3";
                 } else {
                     // PARA COPIAR Y MOVER IMAGEN AL DIRECTORIO IMAGENES
@@ -52,7 +52,7 @@
                 return 0;
             } else {
                 // FUNCION PARA ACTUALIZAR
-                if(actualizarDatosUsu($cn, $rutaDefinitiva2, $celular, $nombre, $clave, $emailOring) == 1) {   // METODO PARA ACTUALIZAR
+                if(actualizarDatosUsu($cn, $rutaDefinitiva2, $celular, $nombre, $clave, $emailOring) == 0) {   // METODO PARA ACTUALIZAR
                     $respuesta['estado'] = "3";
                 } else {
                     // PARA COPIAR Y MOVER IMAGEN AL DIRECTORIO IMAGENES
@@ -89,9 +89,13 @@
         $queryBuscarImg = "SELECT DirecImagen FROM usuarios WHERE Email='$emailOring'";
         
         if($resp = $cn->query($queryBuscarImg)) {
+
             if($busqueda = mysqli_fetch_array($resp)) {
                 $rutaImg = trim($busqueda['DirecImagen']);
-                unlink($_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy".$rutaImg);   // RUTA PARA ELIMINAR IMAGEN DEL DIRECTORTIO RAIZ
+
+                if(!empty($rutaImg)) {
+                    unlink($_SERVER['DOCUMENT_ROOT']."/nutricosmetic_rosy".$rutaImg);   // RUTA PARA ELIMINAR IMAGEN DEL DIRECTORTIO RAIZ
+                }
                 return 1;
             }
         } else {

@@ -56,7 +56,8 @@ function cargarImagenicon() {
         var contImagenIcon = document.getElementById('imgIconNavbar');
 
             if (respuesta.contImagen != 1) {
-                // contImagenIcon.src = "./galeria/iconos/usuario.png";
+                // contImagenIcon.src = "../galeria/iconos/usuario.png";
+                
             } else {
                 if(rutaActual == rutaPerfil) {
                     contImagenIcon.src = respuesta.imagen1;

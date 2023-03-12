@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="../../#quiensoy">QUIÉN SOY</a>
                 </li>
-                <li class="nav-item mb-2 mt-2">
+                <li class="nav-item mb-2 mt-2" hidden>
                     <a href="#" class="btn-transparent position-relative mx-3">
                         <img src="../../galeria/iconos/carrito-de-compras.png" height="30" width="30" alt="carrito-de-compras">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
