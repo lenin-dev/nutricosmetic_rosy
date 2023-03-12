@@ -3,6 +3,8 @@ document.getElementById("btnradio1").addEventListener("click", function(){ login
 
 document.getElementById("btnradio2").addEventListener("click", function(){ registrar(); });
 
+window.addEventListener("load", function(){ verificarUsu(); });
+
 const contenedor1 = document.getElementById("idRegistro");
 const contenedor2 = document.getElementById("idLogin");
 
@@ -111,3 +113,22 @@ formRegister.onsubmit = e => {
     }
   }
 };
+
+function verificarUsu() {
+    const httpL = new XMLHttpRequest();
+    var url = "../controlador/consultas/cargaIniciarSesion.php";
+
+    httpL.open("GET", url, true);
+    httpL.send();
+
+    httpL.onreadystatechange = function() {
+        if (httpL.readyState == 4 && httpL.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            if(respuesta.estado == "1") {
+                window.location.href = "../index.html";
+            }
+            
+
+        }
+    }
+}

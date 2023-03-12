@@ -1,26 +1,51 @@
 <section class="container">
     <div class="">
     <!-- grid de cartas de productos //////////////////////////////////// -->
-        <p class="fs-4 fw-bold">PRODUCTOS SÉYTU Y OMNILIFE</p>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <p class="fs-4 fw-bold">PRODUCTOS SEYTÚ Y OMNILIFE</p>
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+
+        <?php
+            include_once("../../controlador/consultas/conexion.php");
+
+            $queryProductos = "SELECT * FROM productos p, marca m WHERE p.IdMarca=m.IdMarca";
+            $result = $cn->query($queryProductos);
+
+            if($result->num_rows > 0) {
+
+                while($prod = mysqli_fetch_array($result)) {
+        ?>
 
             <div class="col-sm-12 col-md-6 col-lg-4 py-3 d-flex justify-content-center">
-              <div class="card shadow" style="width: 18rem;">
-                <img src="https://spaathome.info/wp-content/uploads/2022/04/CREMA-PROTECTORA-SOLAR-FPS50-SEYTU.jpeg"
-                  class="card-img-top" alt="...">
+              <div href="" class="card shadow text-decoration-none" style="width: 14rem;">
+                <img src="<?php echo ".".$prod['Imagen']; ?>" class="card-img-top size-img-prod" alt="Imagen producto">
                 <div class="card-body">
-                  <h5 class="card-title">CREMA PROTECTOR SOLAR SEYTU FPS50</h5>
-                  <p class="card-text">Ideal para protegerte de los rayos del sol UVA/UVB, sin dejar sensación grasosa. Resistente
-                    al
-                    agua.</p>
+                  <h5 class="card-title text-uppercase"><?php echo $prod['NomProducto']; ?></h5>
+                  <!-- <p class="card-text">Ideal para protegerte de los rayos del sol UVA/UVB, sin dejar sensación grasosa. Resistente al agua.</p> -->
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Seytú</li>
-                  <li class="list-group-item text-danger text-decoration-line-through">Presio $425.00</li>
-                  <li class="list-group-item text-success">Descuento $370.00</li>
+                  <li class="list-group-item"><?php echo $prod['NomMarca']; ?></li>
+
+                  <?php
+                      if($prod['PrecioOferta'] == 0) {
+                  ?>
+                        <li class="list-group-item text-success">Precio $<?php echo $prod['PrecioOriginal']; ?>.00</li>
+                  <?php  
+                      } else { 
+                  ?>
+                        <li class="list-group-item text-danger text-decoration-line-through">Precio $<?php echo $prod['PrecioOriginal']; ?>.00</li>
+                        <li class="list-group-item text-success">Oferta $<?php echo $prod['PrecioOferta']; ?>.00</li>
+                  <?php
+                      }
+                  ?>
+
                 </ul>
               </div>
             </div>
+        <?php
+            
+          }
+        }
+        ?>
 
         </div>
     </div>

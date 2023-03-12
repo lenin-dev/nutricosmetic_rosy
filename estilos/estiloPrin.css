@@ -230,3 +230,14 @@
   #mensaje-error-prod {
     display: none;
   }
+
+  .size-img-prod {
+    height: 30vh !important;
+    background-size: contain !important;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  .card:hover {
+    transform: scale(1.1);
+  }

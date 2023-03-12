@@ -33,6 +33,7 @@
     <title>Perfil</title>
 
     <link rel="stylesheet" href="../estilos/estiloPrin.css">
+    <link rel="icon" href="../galeria/iconos/iconotienda.ico">
     <!-- BOOTSTRAP y sweetalert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"

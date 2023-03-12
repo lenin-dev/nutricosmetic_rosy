@@ -8,6 +8,7 @@
     <title>CRUD Productos</title>
 
     <link rel="stylesheet" href="../../estilos/estiloPrin.css">
+    <link rel="icon" href="../../galeria/iconos/iconotienda.ico">
 
     <!-- BOOTSTRAP y sweetalert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
