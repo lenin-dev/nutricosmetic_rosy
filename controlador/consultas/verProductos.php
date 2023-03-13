@@ -2,6 +2,7 @@
 
     include_once("../../controlador/consultas/conexion.php");
     $respuesta = array();
+    $clave = $_GET['claveproducto'];
 
     if(!empty($_POST['clave'])) {
         $clave = $_POST['clave'];

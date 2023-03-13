@@ -241,3 +241,47 @@
   .card:hover {
     transform: scale(1.1);
   }
+
+
+
+  .btn-carrito-compra {
+    padding: 0 20px 0 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 7px #e7ae3373;
+    background-color: #e7a833;
+    color: white;
+    font-size: 17px;
+    border: none;
+    display: flex;
+    align-items: center;
+    transition: all .5s ease-in-out;
+    letter-spacing: 2px;
+  }
+  
+  .btn-carrito-compra:hover {
+    background-color: #f5873e;
+    transition: all .5s ease-in-out;
+    box-shadow: 0px 0px 5px 3px #e78a3373;
+  }
+  
+  .btn-carrito-compra::before {
+    content: "";
+    background-image: url("../galeria/iconos/6-shopping-solid.gif");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: transparent;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: block;
+    /* margin-right: 5px; */
+    transition: all .9s ease-in-out;
+  }
+  
+  .btn-carrito-compra:hover:before {
+    background-image: url("../galeria/iconos/6-shopping-solid.gif");
+    transition: all .9s ease-in-out;
+    transform: rotate(-1turn);
+  }
+  
+  
