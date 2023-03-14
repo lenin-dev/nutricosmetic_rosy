@@ -79,7 +79,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../galeria/iconos/usuario.png" id="imgIconNavbar" alt="Logo" width="40" height="40" class="iconUsuario d-inline-block align-text-center">
+                        <img src="../galeria/iconos/usuario22.png" id="imgIconNavbar" alt="Logo" width="40" height="40" class="iconUsuario d-inline-block align-text-center">
                     </a>
                     <ul class="dropdown-menu">
                         <li><a id="prod" class="dropdown-item" href="../vista/vistaAdmin/crudProductos.php">Administrar productos</a></li>

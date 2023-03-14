@@ -7,7 +7,7 @@ $respuesta = array();
 
 if(isset($_SESSION['Token'])) {
     $tokenUsu = trim($_SESSION['Token']);
-    $queryBusqFav = "SELECT count(c.IdUsuario) total FROM usuarios AS u, carrito AS c WHERE u.Token='28e18a5d666c2d2c3f3bb1f546a93374' AND u.IdUsuario=c.IdUsuario";
+    $queryBusqFav = "SELECT count(c.IdUsuario) total FROM usuarios AS u, carrito AS c WHERE u.Token='$tokenUsu' AND u.IdUsuario=c.IdUsuario";
     $result = mysqli_query($cn, $queryBusqFav);
     $respuesta['total'] = mysqli_fetch_assoc($result);
 } else {

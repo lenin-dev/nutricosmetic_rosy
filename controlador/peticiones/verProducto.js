@@ -81,6 +81,14 @@ function agregarFav(URLsearch) {
                     showConfirmButton: false,
                     timer: 1500
                   })
+            } else if(respuesta.estado == "4") {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'warning',
+                    title: 'Debe iniciar sesión',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             } else {
                 Swal.fire({
                     position: 'top-center',
