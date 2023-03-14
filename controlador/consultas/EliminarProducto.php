@@ -46,9 +46,11 @@
     }
 
     function eliminarProdCat($idProd, $imgRuta, $cn) {
+        $queryEliminarCar = "DELETE carrito FROM carrito WHERE IdProducto='$idProd'";
         $queryEliminarRel = "DELETE FROM relacionprodcat WHERE IdProducto='$idProd'";
         $queryEliminarProd = "DELETE FROM productos WHERE IdProducto='$idProd'";
 
+        $cn->query($queryEliminarCar);
         if($cn->query($queryEliminarRel)) {
             if ($cn->query($queryEliminarProd)) {
                 $rutaImg = trim($imgRuta);

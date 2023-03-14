@@ -27,6 +27,7 @@ const mostrar = (event) => {
 function limpiarImputs() {
     document.getElementById('imagenUsuario').src = "../../galeria/iconos/agregar.png";
     document.getElementById('file-input').value = "";
+    document.getElementById('inputNombreToken').value = "";
     document.getElementById('inputNombreProducto').value = "";
     document.getElementById('selectCategoria').value = "0";
     document.getElementById('selectMarca').value = "0";

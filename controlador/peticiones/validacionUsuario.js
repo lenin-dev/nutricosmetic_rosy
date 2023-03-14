@@ -3,11 +3,16 @@
 window.addEventListener("load", function(){
     cargarUsu();
     cargarImagenicon();
-    valUsuAdmin();
-    verNumsFavs();
+    
+    if(document.getElementById('numCountFav') !== null) {
+        valUsuAdmin();
+        verNumsFavs();
+    }
 });
 
-document.getElementById('btn-fav').addEventListener("click", function() { favVer(); })
+if (document.getElementById("btn-fav") !== null) {
+    document.getElementById('btn-fav').addEventListener("click", function() { favVer(); })
+}
 
 
 const rutaCrud = "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php";
