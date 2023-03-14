@@ -66,9 +66,9 @@
                     <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="../#quiensoy">QUIÉN SOY</a>
                 </li>
                 <li class="nav-item mb-2 mt-2">
-                    <a href="#" class="btn-transparent position-relative mx-3">
-                        <img src="../galeria/iconos/carrito-de-compras.png" height="30" width="30" alt="carrito-de-compras">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <a href="#" class="btn-transparent position-relative mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <img src="../galeria/iconos/favorito.png" height="30" width="30" alt="carrito-de-compras">
+                        <span id="numCountFav" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             
                             <span class="visually-hidden">unread messages</span>
                         </span>
@@ -91,6 +91,25 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Favoritos</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Vaciar</button>
+            </div>
+        </div>
+        </div>
+    </div>
 
     <!-- Modal Editar imagen -->
     <div class="modal fade text-center" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

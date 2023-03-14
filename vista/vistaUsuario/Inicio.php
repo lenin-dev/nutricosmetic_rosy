@@ -16,7 +16,7 @@
         ?>
 
             <div class="col-sm-12 col-md-6 col-lg-4 py-3 d-flex justify-content-center">
-              <a href="./vista/vistaUsuario/producto.html?claveproducto=<?php echo $prod['TokenProd']; ?>" class="card shadow text-decoration-none" style="width: 14rem;">
+              <a href="<?php echo "./vista/vistaUsuario/producto.html?clave=".$prod['TokenProd']; ?>" class="card shadow text-decoration-none" style="width: 14rem;">
                 <img src="<?php echo ".".$prod['Imagen']; ?>" class="card-img-top size-img-prod" alt="Imagen producto">
                 <div class="card-body">
                   <p class="card-title text-uppercase"><?php echo $prod['NomProducto']; ?></p>

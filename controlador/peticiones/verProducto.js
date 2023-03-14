@@ -2,38 +2,95 @@ window.addEventListener("load", function() {
     cargarDatosProd();
 })
 
+var URLsearch = window.location.search;
+
 function cargarDatosProd() {
     const xml = new XMLHttpRequest();
-    const url = "../../controlador/consultas/verProductos.php";
+    const url = "../../controlador/consultas/verProductos.php"+URLsearch;
 
     xml.open("GET", url, true);
+    // xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xml.send();
 
     xml.onreadystatechange = function() {
         if (xml.readyState == 4 && xml.status == 200) {
             var respuesta = JSON.parse(this.responseText);
-            console.log(respuesta);
 
-            // var img = document.getElementById('imagenUsuario');
-            // var Token = document.getElementById('inputNombreToken');
-            // var nombre = document.getElementById('inputNombreProducto');
-            // var cat = document.getElementById('selectCategoria');
-            // var mar = document.getElementById('selectMarca');
-            // var precio = document.getElementById('inputPrecio');
-            // var porsion = document.getElementById('inputProcion');
-            // var oferta = document.getElementById('inputOferta');
-            // var descripcion = document.getElementById('textTareaDescripcion');
+            var img = document.getElementById('img-prod');
+            var titulo = document.getElementById('titulo-producto');
+            var marca = document.getElementById('marca');
+            var categoria = document.getElementById('categoria');
+            var precio = document.getElementById('precio');
+            var precio2 = document.getElementById('precio2');
 
-            // img.src = "../.."+respuesta[0].Imagen;
-            // Token.value = respuesta[0].TokenProd;
-            // nombre.value = respuesta[0].NomProducto;
-            // cat.value = respuesta[0].IdCategoria;
-            // mar.value = respuesta[0].IdMarca;
-            // precio.value = respuesta[0].PrecioOriginal;
-            // porsion.value = respuesta[0].Porcion;
-            // oferta.value = respuesta[0].PrecioOferta;
-            // descripcion.value = respuesta[0].Descripcion;
+            var precioN = document.getElementById('sms-precio-n');
+            var precioO = document.getElementById('sms-precio-o');
+            var precioO2 = document.getElementById('sms-precio-o2');
 
+            var oferta = document.getElementById('oferta');
+            var descripcion = document.getElementById('descripcion');
+
+            img.src = "../.."+respuesta[0].Imagen;
+            titulo.innerHTML = respuesta[0].NomProducto;
+            marca.innerHTML = respuesta[0].NomMarca;
+            categoria.innerHTML = respuesta[0].NomCategoria;
+            descripcion.innerHTML = respuesta[0].Descripcion;
+
+            if(respuesta[0].PrecioOferta > 0) {
+                precioO.style.display = 'block';
+                precioO2.style.display = 'block';
+                precio2.innerHTML = respuesta[0].PrecioOriginal;
+                oferta.innerHTML = respuesta[0].PrecioOferta;
+            } else {
+                precio.innerHTML = respuesta[0].PrecioOriginal;
+                precioN.style.display = 'block';
+            }
+        }
+    }
+}
+
+document.getElementById('btnCarrito').addEventListener("click", function() {
+    agregarFav(URLsearch);
+})
+
+function agregarFav(URLsearch) {
+    const xml = new XMLHttpRequest();
+    const url = "../../controlador/consultas/agregarFavoritos.php"+URLsearch;
+
+    xml.open("GET", url, true);
+    // xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xml.send();
+
+    xml.onreadystatechange = function() {
+        if (xml.readyState == 4 && xml.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+
+            if(respuesta.estado == "1") {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Agregado',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            } else if(respuesta.estado == "2") {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'info',
+                    title: 'Ya se encuentra agregado',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            } else {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: 'Hubo un error, intentelo más tarde',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+            
         }
     }
 }

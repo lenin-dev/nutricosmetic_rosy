@@ -4,6 +4,7 @@ window.addEventListener("load", function(){
     cargarUsu();
     cargarImagenicon();
     valUsuAdmin();
+    verNumsFavs();
 });
 
 const rutaCrud = "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php";
@@ -11,6 +12,33 @@ const rutaPerfil = "/nutricosmetic_rosy/vista/Perfil.php";
 const rutaIndex1 = "/nutricosmetic_rosy/index.html";
 const rutaIndex2 = "/nutricosmetic_rosy/";
 console.log(window.location.pathname);
+
+function verNumsFavs() {
+    const http = new XMLHttpRequest();
+    const url = "../controlador/consultas/verFavoritos.php";
+    const url1 = "./controlador/consultas/verFavoritos.php";
+    const rutaActual = window.location.pathname;
+
+    if(rutaActual == rutaPerfil) {
+        http.open('GET', url, true);
+    } else {
+        http.open('GET', url1, true);
+    }
+    http.send();
+    
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            var respuesta = JSON.parse(http.responseText);
+            var numCountFav = document.getElementById('numCountFav');
+
+            if(respuesta.total == "0") {
+                numCountFav.innerHTML = "0";
+            } else {
+                numCountFav.innerHTML = respuesta['total'].total;
+            }
+        }
+    }
+}
 
 function valUsuAdmin() {
     const http = new XMLHttpRequest();

@@ -17,28 +17,30 @@
 <body id="fondo">
 
     <section class="container bg-light mt-5" id="border-radius">
-        <div class="container text-center pb-4 pt-4" id="contenedorPrincipal">
+        <div class="container pb-4 pt-4" id="contenedorPrincipal">
             <div class="row row-cols-1 row-cols-md-3 my-3">
                 <div class="col-sm-12 col-md-4 mx-auto">
+                    <a href="../../" class=""><img src="../../galeria/iconos/volver.png" width="60" height="60"></a>
                     <div class="mb-3">
-                        <div class="contenedorIcon mt-5">
+                        <div class="contenedorIcon mt-2">
                             <img src="" id="img-prod" class="rounded img-thumbnail">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-5 mx-auto text-start">
-                    <h1 class="fw-bold my-2" id="titulo-producto">titulo</h1>
+                    <h2 class="fw-bold my-2 text-uppercase" id="titulo-producto">titulo</h2>
                     <div class="d-flex">
-                        <label class="d-block fs-5 py-2 me-4">marca: <span id="marca"></span></label>
+                        <label class="d-block fs-5 py-2 me-4">Marca: <span id="marca"></span></label>
                         <label class="d-block fs-5 py-2 mx-4">categoria: <span id="categoria"></span></label>
                     </div>
                     <div class="d-flex">
-                        <label class="d-block fs-5 py-2 me-4">precio: <span id="precio"></span></label>
-                        <label class="d-block fs-5 py-2 mx-4">oferta: <span id="oferta"></span></label>
+                        <div class="fs-5 py-2 me-4 mensaje3" id="sms-precio-n">Precio: <label class="text-success">$<span id="precio">.00</span></label></div>
+                        <div class="fs-5 py-2 me-4 mensaje3" id="sms-precio-o">Precio: <label class="text-danger text-decoration-line-through">$<span id="precio2">.00</span></label></div>
+                        <div class="fs-5 py-2 mx-4 mensaje3" id="sms-precio-o2">Oferta: <label class="text-success">$<span class="text-success" id="oferta">.00</span></label></div>
                     </div>
                     <div class="d-flex">
-                        <label class="d-block fs-5 py-2 me-4">porcion: <span id="porcion"></span></label>
-                        <button class="mx-5 btn-carrito-compra"></button>
+                        
+                        <button class="my-3 btn-carrito-compra" type="button" id="btnCarrito"></button>
                     </div>
                     <label class="d-block fs-5 py-2">Descripcion: <span id="descripcion"></span></label>
                 </div>
@@ -51,6 +53,8 @@
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" 
     crossorigin="anonymous">
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
 
     <script src="../../controlador/peticiones/verProducto.js"></script>
     

@@ -45,7 +45,7 @@
                 </li>
                 <li class="nav-item mb-2 mt-2" hidden>
                     <a href="#" class="btn-transparent position-relative mx-3">
-                        <img src="../../galeria/iconos/carrito-de-compras.png" height="30" width="30" alt="carrito-de-compras">
+                        <img src="../../galeria/iconos/favorito.png" height="30" width="30" alt="carrito-de-compras">
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             1
                             <span class="visually-hidden">unread messages</span>
