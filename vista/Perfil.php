@@ -92,7 +92,7 @@
         </div>
     </nav>
 
-    <!-- Modal -->
+    <!-- Modal favoritos -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -101,11 +101,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Oferta</th>
+                            <th>Limpiar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTable"></tbody>
+                </table>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Vaciar</button>
+            <button type="button" id="vaciar-fav" class="btn btn-primary">Vaciar</button>
             </div>
         </div>
         </div>

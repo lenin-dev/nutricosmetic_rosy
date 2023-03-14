@@ -7,7 +7,8 @@ window.addEventListener("load", function(){
     verNumsFavs();
 });
 
-document.getElementById('btn-fav').addEventListener("click", function() { favVer()})
+document.getElementById('btn-fav').addEventListener("click", function() { favVer(); })
+
 
 const rutaCrud = "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php";
 const rutaPerfil = "/nutricosmetic_rosy/vista/Perfil.php";
@@ -34,7 +35,6 @@ function favVer() {
         if (http.readyState == 4 && http.status == 200) {
             const listaObjetos = ["Imagen","NomProducto","PrecioOriginal","PrecioOferta"];
             var respuesta = JSON.parse(http.responseText);
-            console.log(respuesta);
 
             if(respuesta.estado == '0') {
                 Swal.fire({
@@ -42,7 +42,7 @@ function favVer() {
                     icon: 'warning',
                     title: 'Debe iniciar sesión',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 3000
                 })
             } else {
                 var tbody = document.getElementById('bodyTable');
@@ -54,13 +54,22 @@ function favVer() {
                     for(var j = 0; j < listaObjetos.length; j++) {
 
                         var a = document.createElement('a');
-                        a.setAttribute("href", "#");
+
+                        if(rutaActual == rutaPerfil) {
+                            a.setAttribute("href", "../vista/vistaUsuario/producto.html?clave="+respuesta[i].TokenProd);
+                        } else {
+                            a.setAttribute("href", "./vista/vistaUsuario/producto.html?clave="+respuesta[i].TokenProd);
+                        }                        
                         a.setAttribute("class", "text-decoration-none text-dark");
 
                         if(j == 0) {
                             var td = document.createElement('td');
                             var img = document.createElement('img');
-                            img.setAttribute("src", "."+respuesta[i][listaObjetos[j]]);
+                            if(rutaActual == rutaPerfil) {
+                                img.setAttribute("src", ".."+respuesta[i][listaObjetos[j]]);
+                            } else {
+                                img.setAttribute("src", "."+respuesta[i][listaObjetos[j]]);
+                            }
                             img.setAttribute("width", 40);
                             img.setAttribute("height", 40);
                             td.appendChild(img);
@@ -78,12 +87,16 @@ function favVer() {
                     td = document.createElement('td');
                     var button = document.createElement('button');
                     button.setAttribute("type", "button");
-                    // button.setAttribute("onclick", "verNumsFavs()");
+                    button.setAttribute("onclick", "eliminarFav(value)");
                     button.setAttribute("value", respuesta[i].IdProducto);
                     button.setAttribute("class", "btn-sin-bordes");
 
                     img = document.createElement('img');
-                    img.setAttribute("src", "./galeria/iconos/eliminar.png");
+                    if(rutaActual == rutaPerfil) {
+                        img.setAttribute("src", "../galeria/iconos/eliminar.png");
+                    } else {
+                        img.setAttribute("src", "./galeria/iconos/eliminar.png");
+                    }
                     img.setAttribute("width", "30");
                     img.setAttribute("height", "30");
 
@@ -92,6 +105,51 @@ function favVer() {
                     tr.appendChild(td);
                     tbody.appendChild(tr);
                 }
+            }
+        }
+    }
+}
+
+function eliminarFav(value) {
+    const http = new XMLHttpRequest();
+    const url = "../controlador/consultas/eliminarFavoritos.php";
+    const url1 = "./controlador/consultas/eliminarFavoritos.php";
+    const rutaActual = window.location.pathname;
+    var param = "clave="+value;
+
+    if(rutaActual == rutaPerfil) {
+        http.open('POST', url, true);
+    } else {
+        http.open('POST', url1, true);
+    }
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send(param);
+    
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            var respuesta = JSON.parse(http.responseText);
+
+            if(respuesta.estado == "1") {
+                verNumsFavs();
+                favVer();
+
+            } else if(respuesta.estado == "2") {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: 'Debe iniciar sesión.',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+
+            }  else {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: 'Ocurrio un error, intentelo más tarde.',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
             }
         }
     }

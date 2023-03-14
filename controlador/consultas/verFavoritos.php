@@ -7,7 +7,7 @@ $respuesta = array();
 if(!empty($_POST['id'])) {
     if(isset($_SESSION['Token'])) {
         $tokenUsu = trim($_SESSION['Token']);
-        $queryBusqFav = "SELECT p.Imagen, p.NomProducto, p.PrecioOferta, p.PrecioOriginal, c.IdProducto, c.IdUsuario FROM productos AS p, carrito AS c WHERE p.IdProducto=c.IdProducto";
+        $queryBusqFav = "SELECT p.Imagen, p.NomProducto, p.PrecioOferta, p.PrecioOriginal, p.TokenProd, c.IdProducto, c.IdUsuario FROM productos AS p, usuarios AS u, carrito AS c WHERE u.Token='$tokenUsu' AND p.IdProducto=c.IdProducto AND u.IdUsuario=c.IdUsuario";
         $result = $cn->query($queryBusqFav);
         for($i = 0; $i < $result->num_rows; $i++) {
             $respuesta[$i] = $result->fetch_assoc();
