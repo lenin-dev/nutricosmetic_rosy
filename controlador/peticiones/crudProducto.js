@@ -460,6 +460,7 @@ function cargarTabla(){
                     img2.setAttribute("src", "../../galeria/iconos/eliminar.png");
                     img2.setAttribute("width", "30");
                     img2.setAttribute("height", "30");
+                    
                     a2.appendChild(img2);
                     td2.appendChild(a);
                     td3.appendChild(a2);

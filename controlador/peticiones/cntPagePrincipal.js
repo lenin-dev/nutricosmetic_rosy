@@ -10,11 +10,9 @@ document.getElementById("resp2").addEventListener("click", function(){ cargaPerf
 window.addEventListener("load", function() {
     cargaURL();
     cargaFooter();
+    cargarPageInicio();
+    cargarSlider();
 });
-
-// Cargar desde un inivio //////////////////
-cargarPageInicio();
-cargarSlider();
 
 function cargaFooter() {
     const http = new XMLHttpRequest();

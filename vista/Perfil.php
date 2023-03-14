@@ -66,7 +66,7 @@
                     <a class="nav-link active fs-6 fw-bold" id="pageQuienesSomos" href="../#quiensoy">QUIÉN SOY</a>
                 </li>
                 <li class="nav-item mb-2 mt-2">
-                    <a href="#" class="btn-transparent position-relative mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a href="#" id="btn-fav" class="btn-transparent position-relative mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="../galeria/iconos/favorito.png" height="30" width="30" alt="carrito-de-compras">
                         <span id="numCountFav" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             
@@ -104,7 +104,7 @@
             ...
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary">Vaciar</button>
             </div>
         </div>

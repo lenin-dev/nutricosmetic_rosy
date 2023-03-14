@@ -13,12 +13,10 @@
         if($ejecutarQueary = $cn->query($queryGetUsu)) {
 
             if($busqueda = mysqli_fetch_array($ejecutarQueary)) {
-                if(empty($busqueda['DirecImagen'])) {
-                    $respuesta['imagen'] = "../galeria/iconos/usuario.png";
+                if($busqueda['DirecImagen'] == null) {
+                    $respuesta['imagen'] = "/galeria/iconos/usuario.png";
                 } else {
-                    $respuesta['imagen1'] = "..".$busqueda['DirecImagen'];
-                    $respuesta['imagen2'] = ".".$busqueda['DirecImagen'];
-                    $respuesta['imagen3'] = "../..".$busqueda['DirecImagen'];
+                    $respuesta['imagen'] = $busqueda['DirecImagen'];
                 }
             }
         }

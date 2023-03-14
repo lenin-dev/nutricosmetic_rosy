@@ -42,7 +42,7 @@
                     <a class="nav-link active fs-6 fw-bold" id="pageContactos" href="#/contacto">CONTACTO</a>
                 </li>
                 <li class="nav-item mb-2 mt-2">
-                    <a href="#" class="btn-transparent position-relative mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a href="#" class="btn-transparent position-relative mx-3" id="btn-fav" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="./galeria/iconos/favorito.png" height="30" width="30" alt="carrito-de-compras">
                         <span id="numCountFav" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             
@@ -69,7 +69,7 @@
         </div>
     </nav>
 
-    <!-- Modal -->
+    <!-- Modal favoritos -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -78,10 +78,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Oferta</th>
+                            <th>Limpiar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTable"></tbody>
+                </table>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary">Vaciar</button>
             </div>
         </div>

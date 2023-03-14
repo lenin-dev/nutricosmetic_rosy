@@ -16,15 +16,13 @@
         ?>
 
             <div class="col-sm-12 col-md-6 col-lg-4 py-3 d-flex justify-content-center">
-              <a href="<?php echo "./vista/vistaUsuario/producto.html?clave=".$prod['TokenProd']; ?>" class="card shadow text-decoration-none" style="width: 14rem;">
+              <a href="<?php echo "./vista/vistaUsuario/producto.html?clave=".$prod['TokenProd']; ?>" class="card shadow text-dark fw-bold text-decoration-none" style="width: 14rem;">
                 <img src="<?php echo ".".$prod['Imagen']; ?>" class="card-img-top size-img-prod" alt="Imagen producto">
                 <div class="card-body">
                   <p class="card-title text-uppercase"><?php echo $prod['NomProducto']; ?></p>
                   <!-- <p class="card-text">Ideal para protegerte de los rayos del sol UVA/UVB, sin dejar sensación grasosa. Resistente al agua.</p> -->
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><?php echo $prod['NomMarca']; ?></li>
-
                   <?php
                       if($prod['PrecioOferta'] == 0) {
                   ?>

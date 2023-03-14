@@ -7,11 +7,95 @@ window.addEventListener("load", function(){
     verNumsFavs();
 });
 
+document.getElementById('btn-fav').addEventListener("click", function() { favVer()})
+
 const rutaCrud = "/nutricosmetic_rosy/vista/vistaAdmin/crudProductos.php";
 const rutaPerfil = "/nutricosmetic_rosy/vista/Perfil.php";
 const rutaIndex1 = "/nutricosmetic_rosy/index.html";
 const rutaIndex2 = "/nutricosmetic_rosy/";
 console.log(window.location.pathname);
+
+function favVer() {
+    const http = new XMLHttpRequest();
+    const url = "../controlador/consultas/verFavoritos.php";
+    const url1 = "./controlador/consultas/verFavoritos.php";
+    const rutaActual = window.location.pathname;
+    var param = "id=1";
+
+    if(rutaActual == rutaPerfil) {
+        http.open('POST', url, true);
+    } else {
+        http.open('POST', url1, true);
+    }
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send(param);
+    
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+            const listaObjetos = ["Imagen","NomProducto","PrecioOriginal","PrecioOferta"];
+            var respuesta = JSON.parse(http.responseText);
+            console.log(respuesta);
+
+            if(respuesta.estado == '0') {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'warning',
+                    title: 'Debe iniciar sesión',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                var tbody = document.getElementById('bodyTable');
+                tbody.replaceChildren();
+
+                for(var i = 0; i < respuesta.length; i++) {
+                    var tr = document.createElement('tr');
+                    
+                    for(var j = 0; j < listaObjetos.length; j++) {
+
+                        var a = document.createElement('a');
+                        a.setAttribute("href", "#");
+                        a.setAttribute("class", "text-decoration-none text-dark");
+
+                        if(j == 0) {
+                            var td = document.createElement('td');
+                            var img = document.createElement('img');
+                            img.setAttribute("src", "."+respuesta[i][listaObjetos[j]]);
+                            img.setAttribute("width", 40);
+                            img.setAttribute("height", 40);
+                            td.appendChild(img);
+                            tr.appendChild(td);
+                            j++;
+                        }
+
+                        td = document.createElement('td');
+                        var textValor = document.createTextNode(respuesta[i][listaObjetos[j]]);
+                        
+                        a.appendChild(textValor);
+                        td.appendChild(a);
+                        tr.appendChild(td);
+                    }
+                    td = document.createElement('td');
+                    var button = document.createElement('button');
+                    button.setAttribute("type", "button");
+                    // button.setAttribute("onclick", "verNumsFavs()");
+                    button.setAttribute("value", respuesta[i].IdProducto);
+                    button.setAttribute("class", "btn-sin-bordes");
+
+                    img = document.createElement('img');
+                    img.setAttribute("src", "./galeria/iconos/eliminar.png");
+                    img.setAttribute("width", "30");
+                    img.setAttribute("height", "30");
+
+                    button.appendChild(img);
+                    td.appendChild(button);
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+                }
+            }
+        }
+    }
+}
 
 function verNumsFavs() {
     const http = new XMLHttpRequest();
@@ -80,21 +164,18 @@ function cargarImagenicon() {
 
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-        var respuesta = JSON.parse(http.responseText);
-        var contImagenIcon = document.getElementById('imgIconNavbar');
+            var respuesta = JSON.parse(http.responseText);
+            var contImagenIcon = document.getElementById('imgIconNavbar');
 
-            if (respuesta.contImagen != 1) {
-                // contImagenIcon.src = "../galeria/iconos/usuario.png";
-                
-            } else {
+            if (respuesta.contImagen == 1) {
                 if(rutaActual == rutaPerfil) {
-                    contImagenIcon.src = respuesta.imagen1;
+                    contImagenIcon.src = ".."+respuesta.imagen;
 
                 } else if(rutaActual == rutaIndex1 || rutaActual == rutaIndex2) {
-                    contImagenIcon.src = respuesta.imagen2;
+                    contImagenIcon.src = "."+respuesta.imagen;
 
                 } else {
-                    contImagenIcon.src = respuesta.imagen3;
+                    contImagenIcon.src = "../.."+respuesta.imagen;
                 }
             }
         }
