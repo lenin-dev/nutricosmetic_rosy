@@ -598,8 +598,6 @@ function MostrarEditarProd(clave) {
             mar.value = respuesta[0].IdMarca;
             precio.value = respuesta[0].PrecioOriginal;
             porsion.value = respuesta[0].Porcion;
-
-            oferta.disabled = false;
             oferta.value = respuesta[0].PrecioOferta;
             descripcion.value = respuesta[0].Descripcion;
 
@@ -629,7 +627,7 @@ document.getElementById("btnActualizar").addEventListener("click", function() {
 
             } else if (respuesta.estado == "4") {
                 mensaje.style.display = "block";
-                mensaje.innerHTML = "Hubo un error al actualizar el producto vuelva a intentarlo";
+                mensaje.innerHTML = "Hubo un error al guardar el producto vuelva a intentarlo";
                 setTimeout(mostrarMensajeProdEdit, 10000);
 
             } else if (respuesta.estado == "3") {

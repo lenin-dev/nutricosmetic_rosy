@@ -98,10 +98,10 @@
     }
 
     function UpdateSinImg($cn, $txtProducto, $nomEncript, $txtCategoria, $txtMarca, $txtPrecio, $txtPorcion, $txtDescripcion, $txtOferta) {
-        $queryUpdate = "UPDATE productos SET IdMarca='$txtMarca',TokenProd='$nomEncript',NomProducto='$txtProducto',Porcion='$txtPorcion',PrecioOriginal='$txtPrecio',PrecioOferta='$txtOferta',Descripcion='$txtDescripcion' WHERE NomProducto='$txtProducto'";
+        $queryUpdate = "UPDATE productos SET IdMarca='$txtMarca',NomProducto='$txtProducto',Porcion='$txtPorcion',PrecioOriginal='$txtPrecio',PrecioOferta='$txtOferta',Descripcion='$txtDescripcion' WHERE NomProducto='$txtProducto'";
 
         if($respAdd = $cn->query($queryUpdate)) {
-            $queryBuscarIdProd = "SELECT * FROM productos WHERE TokenProd='$nomEncript'";
+            $queryBuscarIdProd = "SELECT * FROM productos WHERE NomProducto='$txtProducto'";
             $respBusquedaId = $cn->query($queryBuscarIdProd);
             
             if($busquedaId = mysqli_fetch_array($respBusquedaId)) {
