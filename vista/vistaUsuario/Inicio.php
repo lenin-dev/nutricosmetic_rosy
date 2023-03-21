@@ -1,7 +1,7 @@
 <section class="container">
     <div class="">
     <!-- grid de cartas de productos //////////////////////////////////// -->
-        <p class="fs-4 fw-bold">PRODUCTOS SEYTÚ Y OMNILIFE</p>
+        <h1 class="fw-bold">PRODUCTOS SEYTÚ Y OMNILIFE</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <?php
